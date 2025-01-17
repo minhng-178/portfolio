@@ -2,6 +2,7 @@
 
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import { ThemeProvider } from "./theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function Providers({
   children,
@@ -15,7 +16,10 @@ export default function Providers({
       enableSystem
       disableTransitionOnChange
     >
-      <ActiveSectionContextProvider>{children}</ActiveSectionContextProvider>
+      <ActiveSectionContextProvider>
+        {children}
+        <Toaster />
+      </ActiveSectionContextProvider>
     </ThemeProvider>
   );
 }
