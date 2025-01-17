@@ -1,0 +1,15 @@
+{
+    "header": {
+        "title": "Xin chào thế giới!",
+        "about": "Đi đến trang giới thiệu",
+        "toggle-theme": "Chuyển đổi nền",
+        "light": "Sáng",
+        "dark": "Tối",
+        "system": "Hệ thống",
+        "toggle-language": "Chuyển đổi ngôn ngữ"
+    },
+    "metadata": {
+        "title": "Hồ sơ của tôi",
+        "description": "Đây là hồ sơ của tôi"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "header": {
+        "title": "Hello world!",
+        "about": "Go to the about page",
+        "toggle-theme": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System",
+        "toggle-language": "Toggle language"
+    },
+    "metadata": {
+        "title": "My portfolio",
+        "description": "This is my portfolio"
+    }
+}
