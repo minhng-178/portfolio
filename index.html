@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Viết Anh Minh | Frontend Engineer (Mobile/Web)</title>
+    <meta name="description" content="Portfolio of Nguyễn Viết Anh Minh, Frontend Engineer specializing in high-performance mobile/web applications and AI-driven workflows.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+    <!-- Background Decorative Elements -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Minh<span>.dev</span></a>
+            <ul class="nav-links">
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="assets/resume.pdf" target="_blank" class="cv-nav-btn"><i class="fa-solid fa-file-arrow-down"></i> Resume</a>
+                <button id="theme-toggle" aria-label="Toggle light/dark theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="menu-btn" id="mobile-menu-btn">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav" id="mobile-nav">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="assets/resume.pdf" target="_blank" style="color: var(--primary-color);"><i class="fa-solid fa-file-arrow-down"></i> Resume PDF</a></li>
+        </ul>
+    </div>
+
+    <!-- About Section -->
+    <header id="about" class="section hero-section">
+        <div class="container hero-grid">
+            <div class="hero-text animate-fade-in-left">
+                <span class="badge">Open to Opportunities</span>
+                <h1 id="hero-name-title">Loading...</h1>
+                <h2 id="hero-role-title">I build <span id="typed-text" class="highlight"></span><span class="typed-cursor">|</span></h2>
+                <p class="hero-subtitle" id="hero-summary-text">...</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                    <a href="assets/resume.pdf" target="_blank" class="btn btn-secondary"><i class="fa-solid fa-file-arrow-down" style="margin-right: 8px;"></i> Download CV</a>
+                </div>
+            </div>
+            <div class="hero-visual animate-fade-in-right">
+                <div class="profile-card">
+                    <div class="profile-img-container">
+                        <img src="assets/avatar.jpg" alt="Nguyễn Viết Anh Minh" id="profile-img">
+                    </div>
+                    <div class="floating-tag tag-1"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Dev</div>
+                    <div class="floating-tag tag-2"><i class="fa-solid fa-brain"></i> AI Engineer</div>
+                    <div class="profile-info">
+                        <h3 id="card-name">...</h3>
+                        <p id="card-location">...</p>
+                        <div class="social-icons" id="card-socials">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-down">
+            <a href="#experience"><i class="fa-solid fa-chevron-down bounce"></i></a>
+        </div>
+    </header>
+
+    <!-- Work Experience Section -->
+    <section id="experience" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Timeline</span>
+                <h2>Work Experience</h2>
+                <div class="underline"></div>
+            </div>
+            
+            <div class="timeline" id="timeline-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Portfolio</span>
+                <h2>Recent Projects</h2>
+                <div class="underline"></div>
+            </div>
+            
+            <div class="projects-grid" id="projects-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Competencies</span>
+                <h2>Technical Skills</h2>
+                <div class="underline"></div>
+            </div>
+            
+            <div class="skills-container" id="skills-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Learning</span>
+                <h2>Education</h2>
+                <div class="underline"></div>
+            </div>
+            
+            <div class="education-grid" id="education-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Connect</span>
+                <h2>Get In Touch</h2>
+                <div class="underline"></div>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info-panel card">
+                    <h3>Contact Information</h3>
+                    <p>Feel free to reach out for mobile developer opportunities, AI collaborations, or freelance projects.</p>
+                    
+                    <div class="contact-details" id="contact-details-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                
+                <div class="contact-form-panel card">
+                    <h3>Send a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email_addr">Your Email</label>
+                            <input type="email" id="email_addr" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" placeholder="Hi Anh Minh, I'd like to talk about..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                    <div id="form-response" class="form-response-msg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <p id="footer-text">&copy; 2026 Nguyễn Viết Anh Minh. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

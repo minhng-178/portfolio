@@ -1,0 +1,199 @@
+{
+  "personal_info": {
+    "name": "Nguyễn Viết Anh Minh",
+    "title": "Frontend Engineer (Mobile/Web)",
+    "phone": "0938459644",
+    "email": "anhminh1782002@gmail.com",
+    "linkedin": "linkedin.com/in/minhng178/",
+    "linkedin_url": "https://www.linkedin.com/in/minhng178/",
+    "github_url": "https://github.com/minhng-178",
+    "location": "Ho Chi Minh city, Viet Nam"
+  },
+  "summary": "Frontend Engineer with 3+ years of professional experience designing, building, and maintaining high-performance web and mobile user interfaces. Specialized in React, TypeScript, and React Native, with a proven track record of delivering production-grade applications to Apple App Store and Google Play. Skilled in constructing reusable UI design systems and exploring modern micro-frontend architectures (Single-Spa, SystemJS) to scale platform experiences. Proven success integrating AI-powered workflows (Claude, Cursor) to speed up delivery cycles by 30% while writing secure, modular, and testable code.",
+  "stats": [
+    {
+      "num": "3+",
+      "label": "Years Experience"
+    },
+    {
+      "num": "30%",
+      "label": "Delivery Cycle Speedup"
+    },
+    {
+      "num": "20%",
+      "label": "Booking Rate Increase"
+    }
+  ],
+  "work_experience": [
+    {
+      "company": "HDWEBSOFT Software Development Company",
+      "role": "Frontend Engineer (Mobile/Web)",
+      "dates": "Mar 2025 - Present",
+      "bullets": [
+        "Designed and built high-quality, scalable user interfaces for the Game Publishing Platform, streamlining player authentication, content management, and publishing workflows.",
+        "Delivered high-performance and maintainable frontend applications using React, TypeScript, and React Native, successfully managing the full App Store & Google Play release lifecycle.",
+        "Developed and maintained the company’s internal UI System Library, utilizing Tailwind CSS, Shadcn UI, and Headless UI to ensure design consistency and component reusability.",
+        "Collaborated with backend engineers to integrate APIs and design secure, end-to-end features, optimizing state management with Redux-Saga and RESTful endpoints.",
+        "Integrated micro-frontend architectures (Single-Spa, SystemJS) to modularize codebase components, significantly improving platform load speed, scalability, and code maintainability.",
+        "Leveraged AI-powered tools (Claude, Cursor) to automate development workflows and accelerate the project delivery lifecycle by 30%.",
+        "Wrote robust unit tests using Jest and React Native Testing Library, participated in rigorous code reviews, and managed service reliability and troubleshooting operations."
+      ],
+      "tech": [
+        "React Native",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shadcn UI",
+        "Micro-Frontends",
+        "Redux-Saga",
+        "Next.js",
+        "Claude AI / Cursor",
+        "Android/iOS Native"
+      ]
+    },
+    {
+      "company": "Wareflex",
+      "role": "React Native & Web Developer",
+      "dates": "Jul 2024 - Feb 2025",
+      "bullets": [
+        "Engineered and optimized the web-based Warehouse Management System (WMS) portal and mobile application using React, Next.js, and React Native.",
+        "Built custom UI component libraries with Tailwind CSS and Headless UI to accelerate development speed and maintain design system standards.",
+        "Integrated RESTful APIs and implemented local state caching with Zustand and use-query, establishing secure cookie-based session authentication and XSS protections.",
+        "Improved web performance metrics and Core Web Vitals (reducing page load latency by 25%) by leveraging Webpack/Vite code-splitting and asset optimization."
+      ],
+      "tech": [
+        "React Native",
+        "React",
+        "TypeScript",
+        "Zustand",
+        "Next.js",
+        "Tailwind CSS",
+        "Vite",
+        "RESTful APIs",
+        "use-query"
+      ]
+    },
+    {
+      "company": "Assure Global Group",
+      "role": "Front End Developer Intern",
+      "dates": "Sep 2023 - Dec 2023",
+      "bullets": [
+        "Analyzed complex CRM architectures and implemented responsive user layouts and interface features utilizing React, JavaScript, and semantic HTML5/CSS3.",
+        "Collaborated with cross-functional teams using Git, wrote unit tests for frontend components, and participated in engineering process improvements."
+      ],
+      "tech": [
+        "React",
+        "JavaScript",
+        "HTML5/CSS3",
+        "Git",
+        "CRM Systems",
+        "Unit Testing"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "OCR for Vietnamese Handwriting",
+      "role": "AI Engineer",
+      "dates": "Dec 2025 - Mar 2026",
+      "icon": "fa-solid fa-brain",
+      "description": "Developed a Computer Vision system using fine-tuned PaddleOCR to digitize English and Vietnamese handwritten text. Enhanced OCR inference accuracy on complex datasets by building an adaptive OpenCV preprocessing pipeline (noise reduction, contrast adjustment). Architected a scalable backend using Domain-Driven Design (DDD) and deployed the model as a RESTful API via FastAPI.",
+      "bullets": [
+        "Built a responsive React and Tailwind CSS web application interface to digitize handwriting.",
+        "Architected a scalable backend system using Domain-Driven Design (DDD) principles and deployed PaddleOCR model as a RESTful API using FastAPI.",
+        "Utilized OpenCV preprocessing algorithms (noise reduction, contrast stretching) to improve text recognition accuracy."
+      ],
+      "tech": [
+        "Python",
+        "PaddleOCR",
+        "OpenCV",
+        "FastAPI",
+        "Scikit-learn",
+        "DDD"
+      ],
+      "status": "Completed"
+    },
+    {
+      "name": "Warehouse Management System (WMS) Mobile App",
+      "role": "Lead Mobile Developer",
+      "dates": "Jul 2024 - Feb 2025",
+      "icon": "fa-solid fa-boxes-stacked",
+      "description": "Engineered a warehouse operational workflow mobile app from scratch, optimizing inventory tracking, inbound stock scanning, and manual data-entry flow. Integrated local state caching for offline-first usage, resulting in immediate efficiency upgrades for staff.",
+      "bullets": [
+        "Engineered a full-featured WMS mobile app in React Native and web portal in Next.js from scratch.",
+        "Integrated local offline caching with Zustand, boosting warehouse stock scanning speeds and reducing manual errors.",
+        "Coordinated full deployment and submission lifecycle onto Apple App Store and Google Play."
+      ],
+      "tech": [
+        "React Native",
+        "Zustand",
+        "RESTful APIs",
+        "Offline Caching"
+      ],
+      "status": "Deployed"
+    },
+    {
+      "name": "BMAD Lite Integration with Claude AI",
+      "role": "AI / Mobile Developer",
+      "dates": "2025",
+      "icon": "fa-solid fa-robot",
+      "description": "Pioneered an AI-first engineering workflow within mobile applications. Customized the BMAD Lite framework and hooked up Claude AI pipelines to speed up contextual tasks, reducing core project delivery lifecycles by 30%.",
+      "bullets": [
+        "Customized the BMAD Lite framework and hooked up Claude AI APIs to build context-aware workflows.",
+        "Spearheaded AI-powered code generation pipelines to automate component template generation, shortening project delivery by 30%."
+      ],
+      "tech": [
+        "Claude AI",
+        "BMAD Lite",
+        "React Native",
+        "React"
+      ],
+      "status": "R&D Completed"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Mobile Development",
+      "icon": "fa-solid fa-mobile-screen-button",
+      "items": "React Native, App Store & Google Play Deployment, React Navigation, react-native-webview, patch-package"
+    },
+    {
+      "category": "Frontend & Web",
+      "icon": "fa-solid fa-code",
+      "items": "React, Next.js, Micro-frontend (Single-Spa, SystemJS), TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Shadcn UI, Headless UI"
+    },
+    {
+      "category": "State Management & Tools",
+      "icon": "fa-solid fa-database",
+      "items": "Redux, Redux-Saga, Zustand, Webpack, Vite, Chrome DevTools, Git, use-query, RESTful APIs, MongoDB"
+    },
+    {
+      "category": "AI & Engineering Practices",
+      "icon": "fa-solid fa-microchip",
+      "items": "Claude, Cursor, Unit Testing (Jest, RNTL), Web Performance & Core Web Vitals, Web Security (XSS prevention, cookies, authentication)"
+    },
+    {
+      "category": "Languages",
+      "icon": "fa-solid fa-language",
+      "items": "English: TOEIC 830, Vietnamese: Native"
+    }
+  ],
+  "education": [
+    {
+      "school": "FPT School of Business & Technology",
+      "degree": "Master's degree, Artificial Intelligence",
+      "dates": "Sep 2025 - Current",
+      "gpa": "3.62 / 4.0",
+      "icon": "fa-solid fa-graduation-cap",
+      "desc": "Deepening knowledge in advanced AI theories, machine learning models, and computer vision systems."
+    },
+    {
+      "school": "FPT University",
+      "degree": "Bachelor's degree, Computer Software Engineering",
+      "dates": "Sep 2020 - Dec 2024",
+      "gpa": "3.2 / 4.0",
+      "icon": "fa-solid fa-university",
+      "desc": "Comprehensive training in software engineering, data structures, algorithms, and application architectures."
+    }
+  ]
+}

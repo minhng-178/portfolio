@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ personal_info.name }} - Resume</title>
+    <style>
+        /* CSS Reset & Page Configuration */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+        
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 10.5pt;
+            line-height: 1.25;
+            color: #000000;
+            background: #ffffff;
+            -webkit-print-color-adjust: exact;
+        }
+
+        /* Container */
+        .resume-container {
+            width: 100%;
+            max-width: 8.5in;
+            margin: 0 auto;
+        }
+
+        /* Header / Contact Info */
+        .header {
+            text-align: center;
+            margin-bottom: 8pt;
+        }
+        
+        .header h1 {
+            font-size: 24pt;
+            font-weight: normal;
+            margin-bottom: 3pt;
+        }
+        
+        .contact-info {
+            font-size: 9.5pt;
+            margin-bottom: 4pt;
+        }
+        
+        .contact-info span {
+            display: inline-block;
+        }
+        
+        .contact-info span:not(:last-child)::after {
+            content: " | ";
+            margin: 0 4pt;
+            color: #000000;
+        }
+
+        .contact-info a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* Section Headings */
+        .section {
+            margin-top: 9pt;
+            margin-bottom: 5pt;
+        }
+        
+        .section-title {
+            font-size: 11pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5pt;
+            margin-bottom: 2pt;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            flex-grow: 1;
+            margin-left: 6pt;
+            border-bottom: 0.75pt solid #000000;
+        }
+
+        /* Items / Rows */
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 10pt;
+            margin-bottom: 1pt;
+        }
+        
+        .item-subheader {
+            display: flex;
+            justify-content: space-between;
+            font-style: italic;
+            font-size: 9.5pt;
+            margin-bottom: 3pt;
+        }
+        
+        .item-bullets {
+            margin-left: 14pt;
+            margin-bottom: 6pt;
+        }
+        
+        .item-bullets li {
+            list-style-type: disc;
+            font-size: 9.5pt;
+            margin-bottom: 2.5pt;
+            text-align: justify;
+        }
+
+        /* Projects Section specific styles */
+        .project-item {
+            margin-bottom: 6pt;
+        }
+        
+        .project-title {
+            font-weight: bold;
+            font-size: 10pt;
+        }
+        
+        .project-tech {
+            font-weight: normal;
+            font-style: italic;
+            font-size: 9.5pt;
+        }
+
+        /* Summary Section */
+        .summary-text {
+            font-size: 9.5pt;
+            text-align: justify;
+            margin-bottom: 6pt;
+            line-height: 1.3;
+        }
+
+        /* Skills Section */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+            margin-top: 2pt;
+        }
+        
+        .skills-row {
+            margin-bottom: 3pt;
+        }
+        
+        .skill-category {
+            font-weight: bold;
+            display: inline-block;
+            min-width: 130pt;
+        }
+        
+        .skill-list {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>{{ personal_info.name }}</h1>
+            <div class="contact-info">
+                <span>{{ personal_info.phone }}</span>
+                <span><a href="mailto:{{ personal_info.email }}">{{ personal_info.email }}</a></span>
+                <span><a href="https://{{ personal_info.linkedin }}" target="_blank">{{ personal_info.linkedin }}</a></span>
+                <span>{{ personal_info.location }}</span>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        {% if summary %}
+        <div class="section">
+            <div class="section-title">Summary</div>
+            <div class="summary-text">
+                {{ summary }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Work Experience -->
+        <div class="section">
+            <div class="section-title">Work Experience</div>
+            {% for job in work_experience %}
+            <div class="job-item">
+                <div class="item-header">
+                    <span>{{ job.company }}</span>
+                    <span>{{ job.dates }}</span>
+                </div>
+                <div class="item-subheader">
+                    <span>{{ job.role }}</span>
+                    <span></span>
+                </div>
+                <ul class="item-bullets">
+                    {% for bullet in job.bullets %}
+                    <li>{{ bullet }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Projects -->
+        <div class="section">
+            <div class="section-title">Projects</div>
+            {% for project in projects %}
+            <div class="project-item">
+                <div class="item-header">
+                    <span>
+                        <span class="project-title">{{ project.name }}</span>
+                        {% if project.role %}
+                        | <span class="project-tech">{{ project.role }}</span>
+                        {% endif %}
+                    </span>
+                    <span>{{ project.dates }}</span>
+                </div>
+                <ul class="item-bullets">
+                    {% for bullet in project.bullets %}
+                    <li>{{ bullet }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Education -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            {% for edu in education %}
+            <div class="education-item" style="margin-bottom: 4pt;">
+                <div class="item-header">
+                    <span>{{ edu.school }}</span>
+                    <span>{{ edu.dates }}</span>
+                </div>
+                <div class="item-subheader">
+                    <span>{{ edu.degree }}</span>
+                    <span>{{ edu.gpa }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Skills -->
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <div style="line-height: 1.35;">
+                {% for skill in skills %}
+                <div class="skills-row">
+                    <span class="skill-category">{{ skill.category }}:</span>
+                    <span class="skill-list">{{ skill.items }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
