@@ -1,0 +1,3 @@
+{$BACKEND_HOSTNAME} {
+	reverse_proxy backend:8001
+}

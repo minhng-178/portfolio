@@ -13,13 +13,13 @@
         
         @page {
             size: letter;
-            margin: 0.5in;
+            margin: 0.35in 0.45in;
         }
         
         body {
             font-family: "Times New Roman", Times, serif;
-            font-size: 10.5pt;
-            line-height: 1.25;
+            font-size: 9.5pt;
+            line-height: 1.2;
             color: #000000;
             background: #ffffff;
             -webkit-print-color-adjust: exact;
@@ -35,18 +35,26 @@
         /* Header / Contact Info */
         .header {
             text-align: center;
-            margin-bottom: 8pt;
+            margin-bottom: 6pt;
         }
         
         .header h1 {
-            font-size: 24pt;
-            font-weight: normal;
+            font-size: 20pt;
+            font-weight: bold;
+            margin-bottom: 2pt;
+            letter-spacing: 0.5pt;
+        }
+
+        .header .subtitle {
+            font-size: 11pt;
+            font-weight: bold;
             margin-bottom: 3pt;
+            color: #222;
         }
         
         .contact-info {
-            font-size: 9.5pt;
-            margin-bottom: 4pt;
+            font-size: 9pt;
+            margin-bottom: 2pt;
         }
         
         .contact-info span {
@@ -55,7 +63,7 @@
         
         .contact-info span:not(:last-child)::after {
             content: " | ";
-            margin: 0 4pt;
+            margin: 0 3pt;
             color: #000000;
         }
 
@@ -66,16 +74,16 @@
 
         /* Section Headings */
         .section {
-            margin-top: 9pt;
-            margin-bottom: 5pt;
+            margin-top: 6pt;
+            margin-bottom: 3pt;
         }
         
         .section-title {
-            font-size: 11pt;
+            font-size: 10.5pt;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5pt;
-            margin-bottom: 2pt;
+            margin-bottom: 3pt;
             display: flex;
             align-items: center;
         }
@@ -88,11 +96,15 @@
         }
 
         /* Items / Rows */
+        .job-item {
+            margin-bottom: 4pt;
+        }
+
         .item-header {
             display: flex;
             justify-content: space-between;
             font-weight: bold;
-            font-size: 10pt;
+            font-size: 9.5pt;
             margin-bottom: 1pt;
         }
         
@@ -100,66 +112,68 @@
             display: flex;
             justify-content: space-between;
             font-style: italic;
-            font-size: 9.5pt;
-            margin-bottom: 3pt;
+            font-size: 9pt;
+            margin-bottom: 2pt;
         }
         
         .item-bullets {
-            margin-left: 14pt;
-            margin-bottom: 6pt;
+            margin-left: 13pt;
+            margin-bottom: 3pt;
         }
         
         .item-bullets li {
             list-style-type: disc;
-            font-size: 9.5pt;
-            margin-bottom: 2.5pt;
+            font-size: 9pt;
+            margin-bottom: 1.5pt;
             text-align: justify;
         }
 
         /* Projects Section specific styles */
         .project-item {
-            margin-bottom: 6pt;
+            margin-bottom: 4pt;
         }
         
         .project-title {
             font-weight: bold;
-            font-size: 10pt;
+            font-size: 9.5pt;
         }
         
         .project-tech {
             font-weight: normal;
             font-style: italic;
-            font-size: 9.5pt;
+            font-size: 9pt;
         }
 
         /* Summary Section */
         .summary-text {
-            font-size: 9.5pt;
+            font-size: 9pt;
             text-align: justify;
-            margin-bottom: 6pt;
-            line-height: 1.3;
+            margin-bottom: 4pt;
+            line-height: 1.25;
         }
 
         /* Skills Section */
         .skills-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 9.5pt;
-            margin-top: 2pt;
+            font-size: 9pt;
+            margin-top: 1pt;
+            margin-bottom: 3pt;
         }
         
-        .skills-row {
-            margin-bottom: 3pt;
+        .skills-row td {
+            padding-bottom: 2.5pt;
+            vertical-align: top;
         }
         
         .skill-category {
             font-weight: bold;
-            display: inline-block;
-            min-width: 130pt;
+            width: 155pt;
+            white-space: nowrap;
         }
         
         .skill-list {
-            display: inline;
+            text-align: left;
         }
     </style>
 </head>
@@ -168,6 +182,9 @@
         <!-- Header -->
         <div class="header">
             <h1>{{ personal_info.name }}</h1>
+            {% if personal_info.title %}
+            <div class="subtitle">{{ personal_info.title }}</div>
+            {% endif %}
             <div class="contact-info">
                 <span>{{ personal_info.phone }}</span>
                 <span><a href="mailto:{{ personal_info.email }}">{{ personal_info.email }}</a></span>
@@ -208,6 +225,19 @@
             {% endfor %}
         </div>
 
+        <!-- Skills -->
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <table class="skills-table">
+                {% for skill in skills %}
+                <tr class="skills-row">
+                    <td class="skill-category">{{ skill.category }}</td>
+                    <td class="skill-list">{{ skill['items'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
         <!-- Projects -->
         <div class="section">
             <div class="section-title">Projects</div>
@@ -235,30 +265,17 @@
         <div class="section">
             <div class="section-title">Education</div>
             {% for edu in education %}
-            <div class="education-item" style="margin-bottom: 4pt;">
+            <div class="education-item" style="margin-bottom: 3pt;">
                 <div class="item-header">
                     <span>{{ edu.school }}</span>
                     <span>{{ edu.dates }}</span>
                 </div>
                 <div class="item-subheader">
                     <span>{{ edu.degree }}</span>
-                    <span>{{ edu.gpa }}</span>
+                    <span>GPA: {{ edu.gpa }}</span>
                 </div>
             </div>
             {% endfor %}
-        </div>
-
-        <!-- Skills -->
-        <div class="section">
-            <div class="section-title">Skills</div>
-            <div style="line-height: 1.35;">
-                {% for skill in skills %}
-                <div class="skills-row">
-                    <span class="skill-category">{{ skill.category }}:</span>
-                    <span class="skill-list">{{ skill.items }}</span>
-                </div>
-                {% endfor %}
-            </div>
         </div>
     </div>
 </body>

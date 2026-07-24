@@ -1,104 +1,105 @@
-## <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a1628,50:1a3a5c,100:0d2137&height=200&section=header&text=Nguy%E1%BB%85n%20Vi%E1%BA%BFt%20Anh%20Minh&fontSize=45&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Frontend%20Engineer%20(Mobile%20%2F%20Web)&descAlignY=58&descColor=38bdf8" width="100%" />
+## <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a1628,50:1a3a5c,100:0d2137&height=200&section=header&text=Nguy%E1%BB%85n%20Vi%E1%BA%BFt%20Anh%20Minh&fontSize=45&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Mobile%20Developer%20%7C%202%2B%20Years%20Experience&descAlignY=58&descColor=38bdf8" width="100%" />
 
 ## 🚀 About Me
 
-> **Frontend Engineer** with **3+ years** of professional experience designing, building, and maintaining **high-performance web & mobile** user interfaces.
+> **Mobile Developer** with **2+ years** of professional experience specializing in the **React Native ecosystem** (React, React Native, Redux-Saga, Zustand, Fastlane, Firebase) to engineer and deploy cross-platform mobile applications.
 
-Specialized in **React**, **TypeScript**, and **React Native**, with a proven track record of shipping production-grade applications to both the **Apple App Store** and **Google Play**. Passionate about building reusable **UI design systems**, exploring **micro-frontend architectures**, and leveraging **AI-powered workflows** to ship faster and smarter.
+Proven track record of building main mobile applications directly from scratch, maintaining enterprise platforms, developing full-stack AI-integrated solutions, and publishing apps to both the **Apple App Store** and **Google Play**.
 
 ```
-🧩  Micro-frontends (Single-Spa, SystemJS)   📱  Full App Store / Play Store lifecycle
-🤖  AI Workflows (Claude, Cursor) → 30% faster delivery
-🛡️  Web Security (XSS, Auth, Cookies)        📊  Core Web Vitals & Performance Optimizer
+📱  Title: Mobile Developer (2+ Years Experience)
+🎯  Core: React Native Ecosystem (React, React Native, Redux, Redux-Saga, Zustand, REST APIs, Fastlane, Firebase, Git)
+🚀  Releases: Full App Store & Google Play publishing lifecycle via Fastlane
+🤖  Workflows: AI-assisted development for full-stack integration & side projects
 ```
 
 ---
 
-## 📊 GitHub Statistics
+## 🛠️ Skills & Tech Stack
 
-<div align="center">
+### 💻 Programming Languages
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-[![GitHub followers](https://img.shields.io/github/followers/minhng-178?label=Followers&style=for-the-badge&color=38bdf8&labelColor=0a1628)](https://github.com/minhng-178)
-[![GitHub stars](https://img.shields.io/github/stars/minhng-178?affiliations=OWNER%2CCOLLABORATOR&label=Total%20Stars&style=for-the-badge&color=38bdf8&labelColor=0a1628)](https://github.com/minhng-178)
-[![Profile views](https://komarev.com/ghpvc/?username=minhng-178&color=38bdf8&style=for-the-badge&label=Profile+Views)](https://github.com/minhng-178)
-
-<br/>
-
-[![activity graph](https://github-readme-activity-graph.vercel.app/graph?username=minhng-178&bg_color=0d1117&color=38bdf8&line=1a3a5c&point=ffffff&area=true&hide_border=true)](https://github.com/minhng-178)
-
-</div>
-
----
-
-## 🛠️ Tech Stack
-
-### 📱 Mobile Development
+### 📱 Core Technologies
+> **Chuyên sâu về hệ sinh thái React Native (bao gồm React, React Native, Redux, Redux-Saga, Zustand, RESTful APIs, Fastlane, Firebase, Git)**
 
 ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
-![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=apple&logoColor=white)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-
-### 🌐 Frontend & Web
-
 ![React](https://img.shields.io/badge/React-282C34?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-000000?style=for-the-badge&logoColor=white)
-
-### ⚙️ State Management & Architecture
-
 ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 ![Redux Saga](https://img.shields.io/badge/Redux--Saga-999999?style=for-the-badge&logo=redux-saga&logoColor=white)
 ![Zustand](https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=react&logoColor=white)
-![Micro Frontends](https://img.shields.io/badge/Micro--Frontends-FF6B6B?style=for-the-badge)
-![Single Spa](https://img.shields.io/badge/Single--Spa-CF4647?style=for-the-badge)
-
-### 🗄️ APIs & Database
-
-![REST API](https://img.shields.io/badge/REST-02569B?style=for-the-badge)
-![GraphQL](https://img.shields.io/badge/GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=prisma&logoColor=white)
-
-### 🤖 AI & Engineering Practices
-
-![Claude AI](https://img.shields.io/badge/Claude_AI-D97706?style=for-the-badge&logoColor=white)
-![Cursor](https://img.shields.io/badge/Cursor-000000?style=for-the-badge&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![PaddleOCR](https://img.shields.io/badge/PaddleOCR-0062B0?style=for-the-badge&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-
-### 🚀 DevOps & Tools
-
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
-![GitLab](https://img.shields.io/badge/GitLab-FCA121?style=for-the-badge&logo=gitlab&logoColor=white)
+![REST API](https://img.shields.io/badge/REST_APIs-02569B?style=for-the-badge)
 ![Fastlane](https://img.shields.io/badge/Fastlane-00F200?style=for-the-badge&logo=fastlane&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Webpack](https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+
+### 🌐 Applied & Familiar Technologies (Hiểu và vận dụng)
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![GraphQL](https://img.shields.io/badge/GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socketdotio&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 ---
 
-## 🔬 Featured Projects
+## 🔬 Project Experience
 
-### 🧠 OCR for Vietnamese Handwriting
+### 1. 🩺 Responsum — White-Label Healthcare Mobile App
+- **Nature:** Main Project (Dự án chính)
+- **Role:** Lập trình viên chính, trực tiếp xây dựng và phát triển từ đầu (Built from scratch)
+- **Timeline:** `2025 - Present` (Actively developing to present)
 
-`AI Engineer · Dec 2025 – Mar 2026` · ✅ **Completed**
+> White-label community health platform supporting CKD & Glaucoma patients. Features symptom tracking, medication reminders, newsfeeds, medical library, chat, push notifications, and multi-disease codebase reusability.
 
-> Built a Computer Vision system to digitize Vietnamese and English handwritten text using fine-tuned PaddleOCR — with an adaptive OpenCV preprocessing pipeline and a Domain-Driven Design backend.
+**Stack:** `React Native` `React` `TypeScript` `Redux-Saga` `Zustand` `Normalizr` `Objective-C` `patch-package` `Firebase` `Fastlane` `Git`
 
-- 🌐 Built a responsive **React + Tailwind CSS** web interface for handwriting digitization
-- 🏗️ Architected a scalable backend with **DDD principles** and deployed PaddleOCR as a **FastAPI** REST API
-- 🔬 Applied **OpenCV** preprocessing (noise reduction, contrast stretching) to boost recognition accuracy
+---
 
-**Stack:** `Python` `PaddleOCR` `OpenCV` `FastAPI` `Scikit-learn` `DDD` `React` `Tailwind CSS`
+### 2. 🗺️ BonVoye — Location-Based Storytelling Travel App
+- **Nature:** Main Project (Dự án chính)
+- **Role:** Lập trình viên chính, trực tiếp xây dựng và phát triển từ đầu (Built from scratch)
+- **Timeline:** `Jul 2026 - Present` (Started July 2026)
+
+> Interactive travel experience app featuring full-screen maps, Haversine GPS proximity detection (~20m triggering), hidden thread quests, audio/webtoon narration, dev-mode location simulation, and in-app billing.
+
+**Stack:** `Flutter` `Dart` `flutter_map` `latlong2` `Provider` `Haversine Algorithm` `Apple IAP` `Google Play Billing` `Git`
+
+---
+
+### 3. 📅 HD Booking App — Multi-tenant SaaS Booking Platform
+- **Nature:** Supporting Project (Dự án phụ trợ)
+- **Role:** Support dự án (Maintain, fix bug, và hỗ trợ phát triển tính năng)
+- **Timeline:** `Aug 2025 - Dec 2025` (Supported Aug-Dec 2025, then transferred to GPBMT)
+
+> Customer-facing multi-tenant booking platform for salons & spas. Supported project maintenance, bug fixes, domain-based tenant routing, real-time OTP authentication, Socket.io chat, Stripe & VNPay payments, and Leaflet OpenStreetMap integration before moving to GPBMT CRM.
+
+**Stack:** `Next.js` `React` `TypeScript` `GraphQL` `Apollo Client` `Socket.io` `Stripe` `VNPay` `Leaflet OSM` `Git`
+
+---
+
+### 4. 🏛️ GPBMT CRM — Diocese Management System
+- **Nature:** Full-stack AI-Integrated Project (Dự án Fullstack tích hợp AI)
+- **Role:** Xây dựng từ đầu (Built from scratch) — Trọng tâm chính là phát triển theo hướng Fullstack và tích hợp các tính năng AI.
+- **Timeline:** `Jan 2026 - May 2026` (Delivered May 2026)
+
+> Enterprise financial, HR, and administrative portal for Buôn Ma Thuột Diocese. Started in Jan 2026 and handed over in May 2026. Manages parishes/parishioners, 11 multi-currency fund types with approval workflows, automated payroll transactions, rental contracts, audit logging, and BI reports (Excel/PDF).
+
+**Stack:** `Next.js` `React` `TypeScript` `MongoDB` `Mongoose` `TanStack Query` `shadcn/ui` `JWT` `Docker Swarm` `Claude AI` `Git`
+
+---
+
+### 5. 🧠 OCR for Vietnamese Handwriting
+- **Nature:** Side Project (Dự án cá nhân / ngoài luồng)
+- **Role:** AI Engineer (Master's Side Project)
+- **Timeline:** Dec 2025 - Mar 2026
+
+> Computer Vision system digitizing Vietnamese and English handwritten text using fine-tuned PaddleOCR, adaptive OpenCV image preprocessing pipeline, and a Domain-Driven Design backend via FastAPI. Researched and developed during Master's degree studies.
+
+**Stack:** `Python` `PaddleOCR` `OpenCV` `FastAPI` `DDD` `PyTorch` `React` `Tailwind CSS` `Git`
 
 ---
 
@@ -108,6 +109,32 @@ Specialized in **React**, **TypeScript**, and **React Native**, with a proven tr
 | ------------- | -------------------------------------------- |
 | 🇻🇳 Vietnamese | Native                                       |
 | 🇬🇧 English    | TOEIC 830 — Professional Working Proficiency |
+
+---
+
+## 📬 Contact Form & Mail Service Setup
+
+The portfolio contact form supports two deployment options for dispatching real emails:
+
+### Option 1: FastAPI Backend + SMTP (Recommended for VPS Deployment)
+Configure the following environment variables in `.env` on your VPS:
+```env
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-16-character-app-password
+CONTACT_RECEIVER_EMAIL=your-email@gmail.com
+```
+* **Gmail Setup**: Enable 2-Step Verification on your Google Account, generate an **App Password** under Security Settings, and paste it into `SMTP_PASSWORD`.
+* **API Endpoint**: `POST /api/contact` accepts `{ name, email, message }`, validates input, enforces IP rate limiting (max 5 requests per 10 mins), and sends an HTML formatted notification email.
+
+### Option 2: Web3Forms (Client-Side for Static Hosting)
+If deploying static HTML to GitHub Pages or Vercel without running the FastAPI backend:
+1. Obtain a free Access Key at [web3forms.com](https://web3forms.com).
+2. Set `WEB3FORMS_ACCESS_KEY` in `ui/function/script.js`:
+   ```javascript
+   const WEB3FORMS_ACCESS_KEY = 'your-access-key-here';
+   ```
 
 ---
 

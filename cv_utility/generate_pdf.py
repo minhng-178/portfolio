@@ -6,7 +6,9 @@ from jinja2 import Template
 
 # Define paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-JSON_PATH = os.path.join(os.path.dirname(BASE_DIR), "cv_data.json")
+JSON_PATH = os.path.join(os.path.dirname(BASE_DIR), "ui", "cv_data.json")
+if not os.path.exists(JSON_PATH):
+    JSON_PATH = os.path.join(os.path.dirname(BASE_DIR), "cv_data.json")
 TEMPLATE_PATH = os.path.join(BASE_DIR, "template.html")
 OUTPUT_HTML_PATH = os.path.join(BASE_DIR, "rendered.html")
 OUTPUT_PDF_PATH = os.path.join(BASE_DIR, "resume.pdf")

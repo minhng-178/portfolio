@@ -2,13 +2,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // Fetch and Render Portfolio Data
     // ==========================================================================
-    fetch('cv_data.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+    async function loadCVData() {
+        const candidatePaths = [
+            'cv_data.json',
+            '../cv_data.json',
+            '/cv_data.json'
+        ];
+        for (const path of candidatePaths) {
+            try {
+                const res = await fetch(path);
+                if (res.ok) {
+                    return await res.json();
+                }
+            } catch (e) {
+                // Ignore and try next path
             }
-            return response.json();
-        })
+        }
+        throw new Error('Failed to load cv_data.json from any known path');
+    }
+
+    loadCVData()
         .then(data => {
             renderPortfolio(data);
             initializeInteractiveElements();
@@ -76,19 +89,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="project-tech">
                     ${p.tech.map(t => `<span>${t}</span>`).join('')}
                 </div>
-                <div class="project-links">
-                    <span class="project-status"><i class="fa-solid fa-circle-check"></i> ${p.status}</span>
-                </div>
             </div>
         `).join('');
         document.getElementById('projects-container').innerHTML = projectsHtml;
 
         // 5. Populate Skills List
+        function getSkillIcon(itemText) {
+            const t = itemText.toLowerCase().trim();
+            if (t.includes('javascript') || t === 'js') return '<i class="devicon-javascript-plain colored skill-item-icon"></i>';
+            if (t.includes('typescript') || t === 'ts') return '<i class="devicon-typescript-plain colored skill-item-icon"></i>';
+            if (t.includes('dart')) return '<i class="devicon-dart-plain colored skill-item-icon"></i>';
+            if (t.includes('python')) return '<i class="devicon-python-plain colored skill-item-icon"></i>';
+            if (t.includes('react native')) return '<i class="devicon-react-original colored skill-item-icon"></i>';
+            if (t.includes('react')) return '<i class="devicon-react-original colored skill-item-icon"></i>';
+            if (t.includes('redux')) return '<i class="devicon-redux-original colored skill-item-icon"></i>';
+            if (t.includes('zustand')) return '<i class="fa-solid fa-cubes skill-item-icon" style="color: #ffb703;"></i>';
+            if (t.includes('rest')) return '<i class="fa-solid fa-network-wired skill-item-icon" style="color: #38bdf8;"></i>';
+            if (t.includes('fastlane')) return '<i class="fa-solid fa-rocket skill-item-icon" style="color: #00f200;"></i>';
+            if (t.includes('firebase')) return '<i class="devicon-firebase-plain colored skill-item-icon"></i>';
+            if (t.includes('git')) return '<i class="devicon-git-plain colored skill-item-icon"></i>';
+            if (t.includes('flutter')) return '<i class="devicon-flutter-plain colored skill-item-icon"></i>';
+            if (t.includes('next.js') || t.includes('nextjs')) return '<i class="devicon-nextjs-plain skill-item-icon"></i>';
+            if (t.includes('mongodb') || t.includes('mongoose')) return '<i class="devicon-mongodb-plain colored skill-item-icon"></i>';
+            if (t.includes('graphql')) return '<i class="devicon-graphql-plain colored skill-item-icon"></i>';
+            if (t.includes('socket.io') || t.includes('socket')) return '<i class="devicon-socketio-original skill-item-icon"></i>';
+            if (t.includes('docker')) return '<i class="devicon-docker-plain colored skill-item-icon"></i>';
+            if (t.includes('english')) return '<i class="fa-solid fa-globe skill-item-icon" style="color: #38bdf8;"></i>';
+            if (t.includes('vietnamese')) return '<i class="fa-solid fa-flag skill-item-icon" style="color: #ef4444;"></i>';
+            return '<i class="fa-solid fa-angle-right skill-item-icon" style="color: var(--primary-color);"></i>';
+        }
+
         const skillsHtml = data.skills.map(cat => `
             <div class="skill-category card">
                 <h3><i class="${cat.icon}"></i> ${cat.category}</h3>
                 <ul class="skills-list">
-                    ${cat.items.split(',').map(item => `<li>${item.trim()}</li>`).join('')}
+                    ${cat.items.split(',').map(item => {
+                        const trimmed = item.trim();
+                        return `<li>${getSkillIcon(trimmed)} <span>${trimmed}</span></li>`;
+                    }).join('')}
                 </ul>
             </div>
         `).join('');
@@ -148,8 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // 8. Footer Text
-        document.getElementById('footer-text').innerHTML = `&copy; 2026 ${info.name}. All rights reserved.`;
+        // 8. Footer Text (Dynamic current year)
+        const currentYear = new Date().getFullYear();
+        document.getElementById('footer-text').innerHTML = `&copy; ${currentYear} ${info.name}. All rights reserved.`;
     }
 
     function handleCORSError() {
@@ -285,27 +324,91 @@ document.addEventListener('DOMContentLoaded', () => {
         const formResponse = document.getElementById('form-response');
         
         if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
+            // Determine backend API host dynamically (matches chat.js logic)
+            const PRODUCTION_API_BASE = 'https://203.0.113.10.sslip.io';
+            const isLocalDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+            const API_BASE = isLocalDev ? 'http://localhost:8001' : PRODUCTION_API_BASE;
+            
+            // Optional: Web3Forms access key if deploying static HTML without a backend server
+            const WEB3FORMS_ACCESS_KEY = '';
+
+            contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const submitBtn = contactForm.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn.textContent;
                 
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email_addr');
+                const messageInput = document.getElementById('message');
+                
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const message = messageInput.value.trim();
+                
+                if (!name || !email || !message) {
+                    formResponse.className = 'form-response-msg error';
+                    formResponse.style.display = 'block';
+                    formResponse.innerHTML = '<strong>Error:</strong> Please fill in all required fields.';
+                    return;
+                }
+                
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-                
-                const name = document.getElementById('name').value;
-                
-                setTimeout(() => {
+                formResponse.style.display = 'none';
+
+                try {
+                    let isSuccess = false;
+                    let responseMsg = '';
+
+                    if (WEB3FORMS_ACCESS_KEY) {
+                        // Submit via Web3Forms client-side service
+                        const res = await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            body: JSON.stringify({
+                                access_key: WEB3FORMS_ACCESS_KEY,
+                                name: name,
+                                email: email,
+                                message: message,
+                                subject: `Portfolio Contact Message from ${name}`
+                            })
+                        });
+                        const data = await res.json();
+                        if (res.ok && data.success) {
+                            isSuccess = true;
+                            responseMsg = `Thank you, ${name}! Your message has been sent successfully.`;
+                        } else {
+                            throw new Error(data.message || 'Failed to send message via Web3Forms.');
+                        }
+                    } else {
+                        // Submit via FastAPI backend API
+                        const res = await fetch(`${API_BASE}/api/contact`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ name, email, message })
+                        });
+                        const data = await res.json();
+                        if (res.ok && data.status === 'success') {
+                            isSuccess = true;
+                            responseMsg = data.message || `Thank you, ${name}! Your message has been sent successfully.`;
+                        } else {
+                            throw new Error(data.detail || 'Failed to send message. Please try again.');
+                        }
+                    }
+
                     formResponse.className = 'form-response-msg success';
-                    formResponse.innerHTML = `<strong>Success!</strong> Thank you, ${name}. Your message has been simulated.`;
+                    formResponse.style.display = 'block';
+                    formResponse.innerHTML = `<strong>Success!</strong> ${responseMsg}`;
                     contactForm.reset();
+
+                } catch (err) {
+                    formResponse.className = 'form-response-msg error';
+                    formResponse.style.display = 'block';
+                    formResponse.innerHTML = `<strong>Error:</strong> ${err.message || 'Something went wrong. Please try again.'}`;
+                } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalBtnText;
-                    
-                    setTimeout(() => {
-                        formResponse.style.display = 'none';
-                    }, 6000);
-                }, 1500);
+                }
             });
         }
 
@@ -313,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Typewriter Effect (Hero Section)
         // ==========================================================================
         function startTypewriter() {
-            const words = ["React Native Apps.", "Cross-Platform Mobile Apps.", "AI-First Architectures."];
+            const words = ["React Native Mobile Apps.", "Cross-Platform Mobile Apps.", "AI-Assisted Solutions."];
             let wordIndex = 0;
             let charIndex = 0;
             let isDeleting = false;

@@ -1,0 +1,46 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    # Intentionally not published to the host/internet: Ollama has no
+    # built-in auth, so only the backend service (over the internal Docker
+    # network) should be able to reach it.
+
+  backend:
+    build:
+      context: .
+      dockerfile: chatbot/Dockerfile
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.1:8b}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+      SMTP_SERVER: ${SMTP_SERVER:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      CONTACT_RECEIVER_EMAIL: ${CONTACT_RECEIVER_EMAIL}
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      BACKEND_HOSTNAME: ${BACKEND_HOSTNAME}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  caddy_data:
+  caddy_config:

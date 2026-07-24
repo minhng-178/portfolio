@@ -12,3 +12,12 @@ npm-debug.log*
 .idea/
 *.swp
 *.swo
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Deployment secrets/local overrides
+.env

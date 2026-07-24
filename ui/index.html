@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Devicon for Tech & Programming Language Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -33,7 +35,6 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <a href="assets/resume.pdf" target="_blank" class="cv-nav-btn"><i class="fa-solid fa-file-arrow-down"></i> Resume</a>
                 <button id="theme-toggle" aria-label="Toggle light/dark theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
@@ -69,7 +70,7 @@
                 <p class="hero-subtitle" id="hero-summary-text">...</p>
                 <div class="hero-cta">
                     <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                    <a href="assets/resume.pdf" target="_blank" class="btn btn-secondary"><i class="fa-solid fa-file-arrow-down" style="margin-right: 8px;"></i> Download CV</a>
+                    <a href="../cv_utility/resume.pdf" target="_blank" class="btn btn-secondary"><i class="fa-solid fa-file-arrow-down" style="margin-right: 8px;"></i> Download CV</a>
                 </div>
             </div>
             <div class="hero-visual animate-fade-in-right">
@@ -77,8 +78,8 @@
                     <div class="profile-img-container">
                         <img src="assets/avatar.jpg" alt="Nguyễn Viết Anh Minh" id="profile-img">
                     </div>
-                    <div class="floating-tag tag-1"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Dev</div>
-                    <div class="floating-tag tag-2"><i class="fa-solid fa-brain"></i> AI Engineer</div>
+                    <div class="floating-tag tag-1"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Developer</div>
+                    <div class="floating-tag tag-2"><i class="fa-solid fa-code"></i> React Native Focus</div>
                     <div class="profile-info">
                         <h3 id="card-name">...</h3>
                         <p id="card-location">...</p>
@@ -199,7 +200,7 @@
     <!-- Footer -->
     <footer>
         <div class="container footer-container">
-            <p id="footer-text">&copy; 2026 Nguyễn Viết Anh Minh. All rights reserved.</p>
+            <p id="footer-text">&copy; <span id="current-year"></span> Nguyễn Viết Anh Minh. All rights reserved.</p>
         </div>
     </footer>
 
@@ -208,7 +209,35 @@
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
+    <!-- CV Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-panel" id="chat-panel">
+            <div class="chat-panel-header">
+                <div class="chat-panel-title">
+                    <div class="chat-avatar-icon">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h4>Minh <span class="chat-ai-label">AI</span></h4>
+                        <span class="chat-status" id="chat-status">Checking status...</span>
+                    </div>
+                </div>
+                <button id="chat-close-btn" aria-label="Close Minh AI"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <form class="chat-input-row" id="chat-form">
+                <input type="text" id="chat-input" placeholder="Ask Minh AI anything..." autocomplete="off" required>
+                <button type="submit" id="chat-send-btn" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+        <button class="chat-toggle-btn" id="chat-toggle-btn" aria-label="Chat with Minh AI">
+            <i class="fa-solid fa-robot chat-toggle-icon"></i>
+            <span class="chat-online-dot" id="chat-online-dot"></span>
+        </button>
+    </div>
+
     <!-- Custom JS -->
-    <script src="script.js"></script>
+    <script src="function/script.js"></script>
+    <script src="function/chat.js"></script>
 </body>
 </html>
