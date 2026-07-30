@@ -31,10 +31,10 @@
       "dates": "Mar 2025 - Present",
       "bullets": [
         "Developer for Responsum (Healthcare Mobile App, Mar 2025 - Present): Joined an existing React Native codebase and actively contributed to present — handling tasks, testing, and release cycles across multi-disease white-label architecture, Redux-Saga state management, and Objective-C iOS push notification fixes.",
-        "Main Developer for BonVoye (Location-Based Travel App, Jul 2026 - Present): Built directly from scratch using Flutter starting July 2026, developing Haversine GPS proximity detection, dev-mode location simulation, and in-app billing.",
+        "Project Support Developer for HD Booking App (Aug 2025 - Dec 2025): Maintained and enhanced a multi-tenant React Native salon & spa booking app — fixed core booking flow bugs, resolved cross-platform map issues on iOS/Android, optimized real-time chat performance, and integrated SePay payment gateway.",
+        "Automated mobile release pipelines via Fastlane, GitLab CI, and managed publishing to Apple App Store and Google Play.",
         "Full-stack AI-Integrated Developer for GPBMT CRM (Jan 2026 - May 2026): Built from scratch starting Jan 2026 and delivered in May 2026 using Next.js, MongoDB, Mongoose, and custom JWT authentication, focusing on full-stack architecture and AI integrations.",
-        "Project Support Developer for HD Booking App (Aug 2025 - Dec 2025): Supported project maintenance, bug fixes, and feature developments for a multi-tenant SaaS booking platform from August to December 2025 before transferring to GPBMT CRM.",
-        "Automated mobile release pipelines via Fastlane, GitLab CI, and managed publishing to Apple App Store and Google Play."
+        "Main Developer for BonVoye (Location-Based Travel App, Jul 2026 - Present): Built directly from scratch using Flutter starting July 2026, developing Haversine GPS proximity detection, dev-mode location simulation, and in-app billing."
       ],
       "tech": [
         "React Native",
@@ -111,7 +111,6 @@
         "Zustand",
         "RESTful APIs",
         "Normalizr",
-        "Objective-C",
         "patch-package",
         "Firebase",
         "Fastlane",
@@ -119,6 +118,78 @@
       ]
     },
     {
+      "name": "HD Booking App — Multi-tenant SaaS Booking Platform",
+      "role": "React Native Developer (Maintenance & Feature Enhancements)",
+      "dates": "Aug 2025 - Dec 2025",
+      "icon": "fa-solid fa-calendar-check",
+      "description": "Supporting Project (Aug 2025 - Dec 2025) — Cross-platform mobile app (React Native) for a multi-tenant salon & spa booking service, supporting multiple brands on iOS and Android. Features service booking, OTP authentication, real-time chat, payment integrations, gift cards, and loyalty programs — primarily targeting the Vietnamese market.",
+      "bullets": [
+        "Diagnosed and resolved critical bugs across the core booking business flow (service selection, scheduling, and order confirmation), ensuring end-to-end booking reliability on both iOS and Android.",
+        "Fixed cross-platform map rendering issues on iOS and Android — resolved native map library conflicts and location permission edge cases affecting real-time store locator accuracy.",
+        "Optimized in-app real-time chat performance: reduced re-render overhead, improved message list scrolling smoothness, and resolved Socket.io connection stability issues.",
+        "Integrated SePay payment gateway as a new payment method, handling API flow, webhook verification, and UI feedback for the Vietnamese market."
+      ],
+      "tech": [
+        "React Native",
+        "TypeScript",
+        "JavaScript",
+        "Redux-Saga",
+        "Socket.io",
+        "Google Maps",
+        "SePay",
+        "RESTful APIs",
+        "Git"
+      ]
+    },
+    {
+      "name": "GPBMT CRM — Diocese Management System",
+      "role": "Full-stack Developer (Built from scratch, AI-Integrated)",
+      "dates": "Jan 2026 - May 2026",
+      "icon": "fa-solid fa-church",
+      "description": "Full-stack AI-Integrated Project (Jan 2026 - May 2026) — Comprehensive finance, HR, and administrative management system for Buôn Ma Thuột Diocese. Manages parishes/parishioners, multi-fund finance (11 fund types across 3 groups) with transaction approval workflows, HR/payroll auto-transactions, asset leasing contracts, multi-currency donor tracking, full audit logs, and BI reporting (Excel/PDF export).",
+      "bullets": [
+        "Architected a full layered system: Next.js API Routes → Middleware → Service Layer → Mongoose Models, built and delivered from scratch in ~4 months.",
+        "Implemented custom JWT authentication from scratch (access token 1h + refresh token 7d, httpOnly cookies, bcryptjs) — including a live migration away from NextAuth mid-project.",
+        "Designed 5-role RBAC system (SuperAdmin, DioceseManager, ParishPriest, ParishAccountant, Viewer) with fine-grained permission control across all modules.",
+        "Built multi-currency financial tracking, transaction approval workflows, payroll auto-generation, and comprehensive audit logs for full financial accountability.",
+        "Delivered structured development process: PRD documentation, epic-based story planning, architecture docs, Vitest unit/integration API tests, and GitLab CI/CD with Docker Swarm (multi-stage Alpine)."
+      ],
+      "tech": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "MongoDB",
+        "Mongoose",
+        "TanStack Query",
+        "TanStack Table",
+        "shadcn/ui",
+        "JWT",
+        "Claude AI",
+        "Git"
+      ]
+    },
+    {
+      "name": "OCR for Vietnamese Handwriting",
+      "role": "AI Engineer (Master's Side Project)",
+      "dates": "Dec 2025 - Mar 2026",
+      "icon": "fa-solid fa-brain",
+      "description": "Side Project — Researched and developed during Master's degree studies in Artificial Intelligence. Built a Computer Vision system to digitize Vietnamese and English handwritten text using fine-tuned PaddleOCR, adaptive OpenCV image preprocessing, and FastAPI backend.",
+      "bullets": [
+        "Academic side project researched during Master's degree studies.",
+        "Built OpenCV image preprocessing pipeline and deployed PaddleOCR models as a FastAPI REST API with a React web interface."
+      ],
+      "tech": [
+        "Python",
+        "PaddleOCR",
+        "OpenCV",
+        "FastAPI",
+        "PyTorch",
+        "React",
+        "Tailwind CSS",
+        "Git"
+      ]
+    },
+        {
       "name": "BonVoye — Location-Based Storytelling Travel App",
       "role": "Mobile Developer (Flutter)",
       "dates": "Jul 2026 - Present",
@@ -142,104 +213,23 @@
         "Google Play Billing",
         "Git"
       ]
-    },
-    {
-      "name": "GPBMT CRM — Diocese Management System",
-      "role": "Full-stack Developer (Built from scratch, AI-Integrated)",
-      "dates": "Jan 2026 - May 2026",
-      "icon": "fa-solid fa-church",
-      "description": "Full-stack AI-Integrated Project (Jan 2026 - May 2026) — Comprehensive finance, HR, and administrative management system for Buôn Ma Thuột Diocese. Manages parishes/parishioners, multi-fund finance (11 fund types across 3 groups) with transaction approval workflows, HR/payroll auto-transactions, asset leasing contracts, multi-currency donor tracking, full audit logs, and BI reporting (Excel/PDF export).",
-      "bullets": [
-        "Architected a full layered system: Next.js API Routes → Middleware → Service Layer → Mongoose Models, built and delivered from scratch in ~4 months.",
-        "Implemented custom JWT authentication from scratch (access token 1h + refresh token 7d, httpOnly cookies, bcryptjs) — including a live migration away from NextAuth mid-project.",
-        "Designed 5-role RBAC system (SuperAdmin, DioceseManager, ParishPriest, ParishAccountant, Viewer) with fine-grained permission control across all modules.",
-        "Built multi-currency financial tracking, transaction approval workflows, payroll auto-generation, and comprehensive audit logs for full financial accountability.",
-        "Delivered structured development process: PRD documentation, epic-based story planning, architecture docs, Vitest unit/integration API tests, and GitLab CI/CD with Docker Swarm (multi-stage Alpine)."
-      ],
-      "tech": [
-        "Next.js",
-        "React 19",
-        "TypeScript",
-        "MongoDB",
-        "Mongoose",
-        "TanStack Query",
-        "TanStack Table",
-        "shadcn/ui",
-        "JWT",
-        "Vitest",
-        "Docker Swarm",
-        "GitLab CI",
-        "Claude AI",
-        "Git"
-      ]
-    },
-    {
-      "name": "HD Booking App — Multi-tenant SaaS Booking Platform",
-      "role": "React Native Developer (Maintenance & Feature Enhancements)",
-      "dates": "Aug 2025 - Dec 2025",
-      "icon": "fa-solid fa-calendar-check",
-      "description": "Supporting Project (Aug 2025 - Dec 2025) — Customer-facing multi-tenant salon & spa booking platform (1 deployment, multiple brands via custom domains). Features service booking, OTP authentication, real-time chat, Stripe/VNPay payments, gift cards, loyalty/reviews, and SEO-optimized store pages — primarily targeting the Vietnamese market with English support.",
-      "bullets": [
-        "Supported a multi-tenant domain-based architecture with 3 route groups (marketplace / merchant / tenant), handling SSR/SSG + JSON-LD structured data for SEO-optimized service and store pages.",
-        "Led authentication security upgrade: migrated from localStorage token storage to HttpOnly cookie + in-memory token pattern, significantly reducing XSS attack surface.",
-        "Executed full map engine migration from Google Maps to Leaflet/react-leaflet (OpenStreetMap), eliminating API cost dependency without UX regression.",
-        "Maintained GraphQL Codegen pipeline (Apollo Client v4) and implemented Vietnamese diacritic-insensitive search for improved local market UX.",
-        "Managed multi-environment deployments via multiple Dockerfiles/docker-compose configurations with GitLab CI."
-      ],
-      "tech": [
-        "Next.js",
-        "React 19",
-        "TypeScript",
-        "GraphQL",
-        "Apollo Client",
-        "Socket.io",
-        "Stripe",
-        "Sepay",
-        "Google Map",
-        "i18next",
-        "Docker",
-        "GitLab CI",
-        "Git"
-      ]
-    },
-    {
-      "name": "OCR for Vietnamese Handwriting",
-      "role": "AI Engineer (Master's Side Project)",
-      "dates": "Dec 2025 - Mar 2026",
-      "icon": "fa-solid fa-brain",
-      "description": "Side Project — Researched and developed during Master's degree studies in Artificial Intelligence. Built a Computer Vision system to digitize Vietnamese and English handwritten text using fine-tuned PaddleOCR, adaptive OpenCV image preprocessing, and FastAPI backend.",
-      "bullets": [
-        "Academic side project researched during Master's degree studies.",
-        "Built OpenCV image preprocessing pipeline and deployed PaddleOCR models as a FastAPI REST API with a React web interface."
-      ],
-      "tech": [
-        "Python",
-        "PaddleOCR",
-        "OpenCV",
-        "FastAPI",
-        "DDD",
-        "PyTorch",
-        "React",
-        "Tailwind CSS",
-        "Git"
-      ]
     }
   ],
   "skills": [
     {
       "category": "Programming Languages",
       "icon": "fa-solid fa-code-line",
-      "items": "JavaScript, TypeScript, Dart, Python"
+      "items": "JavaScript, TypeScript, Python"
     },
     {
       "category": "Core Technologies",
       "icon": "fa-solid fa-mobile-screen-button",
-      "items": "React, React Native, Redux, Redux-Saga, Zustand, RESTful APIs, Fastlane, Firebase, Git"
+      "items": "React, React Native, Redux, Redux-Saga, Zustand, RESTful APIs, Firebase, Git"
     },
     {
       "category": "Applied & Familiar Technologies",
       "icon": "fa-solid fa-layer-group",
-      "items": "Flutter, Next.js, MongoDB, Mongoose, GraphQL, Socket.io, Docker"
+      "items": "Flutter, Dart, Fastlane, Next.js, MongoDB, Mongoose, GraphQL, Socket.io, Docker"
     },
     {
       "category": "Languages",
