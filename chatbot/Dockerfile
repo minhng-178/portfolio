@@ -8,7 +8,7 @@ COPY chatbot/requirements.txt chatbot/requirements.txt
 RUN pip install --no-cache-dir -r chatbot/requirements.txt
 
 COPY chatbot/main.py chatbot/main.py
-COPY cv_data.json cv_data.json
+COPY ui/cv_data.json cv_data.json
 
 WORKDIR /app/chatbot
 

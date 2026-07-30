@@ -9,7 +9,7 @@
     "github_url": "https://github.com/minhng-178",
     "location": "Ho Chi Minh city, Viet Nam"
   },
-  "summary": "Mobile Developer with 2+ years of professional experience specializing in the React Native ecosystem (React, React Native, Redux-Saga, Zustand, Fastlane, Firebase) to build and deploy cross-platform mobile applications. Experienced in leading main mobile projects from scratch, maintaining enterprise apps, developing full-stack AI-integrated solutions, and applying AI-driven workflows to accelerate project delivery.",
+  "summary": "Mobile Developer with 2+ years of professional experience specializing in the React Native ecosystem (React, React Native, Redux-Saga, Zustand, Fastlane, Firebase) to build and deploy cross-platform mobile applications. Experienced in leading main mobile projects from scratch, maintaining enterprise apps, developing full-stack AI-integrated solutions, and applying AI-driven workflows to accelerate project delivery. Open to learning new tech stacks, frameworks, or programming languages as required by the role.",
   "stats": [
     {
       "num": "2+",
@@ -27,10 +27,10 @@
   "work_experience": [
     {
       "company": "HDWEBSOFT Software Development Company",
-      "role": "Mobile Developer",
+      "role": "Mobile Developer (React Native)",
       "dates": "Mar 2025 - Present",
       "bullets": [
-        "Main Developer for Responsum (Healthcare Mobile App, Mar 2025 - Present): Built directly from scratch using React Native and actively developing to present, implementing multi-disease white-label architecture, Redux-Saga state management, Objective-C iOS push notification fixes, and Fastlane CI/CD.",
+        "Developer for Responsum (Healthcare Mobile App, Mar 2025 - Present): Joined an existing React Native codebase and actively contributed to present — handling tasks, testing, and release cycles across multi-disease white-label architecture, Redux-Saga state management, and Objective-C iOS push notification fixes.",
         "Main Developer for BonVoye (Location-Based Travel App, Jul 2026 - Present): Built directly from scratch using Flutter starting July 2026, developing Haversine GPS proximity detection, dev-mode location simulation, and in-app billing.",
         "Full-stack AI-Integrated Developer for GPBMT CRM (Jan 2026 - May 2026): Built from scratch starting Jan 2026 and delivered in May 2026 using Next.js, MongoDB, Mongoose, and custom JWT authentication, focusing on full-stack architecture and AI integrations.",
         "Project Support Developer for HD Booking App (Aug 2025 - Dec 2025): Supported project maintenance, bug fixes, and feature developments for a multi-tenant SaaS booking platform from August to December 2025 before transferring to GPBMT CRM.",
@@ -89,17 +89,17 @@
   ],
   "projects": [
     {
-      "name": "Responsum — White-Label Healthcare Mobile App",
-      "role": "Main Developer (Built from scratch)",
+      "name": "Responsum - White-Label Healthcare Mobile App",
+      "role": "React Native Developer",
       "dates": "2025 - Present",
       "icon": "fa-solid fa-mobile-screen-button",
-      "description": "Main Project (Actively developing) — White-label community health platform for CKD & Glaucoma patients built from scratch with React Native. Features symptom tracking, medication reminders, newsfeeds, medical library, chat, push notifications, and multi-disease codebase reusability.",
+      "description": "Active Project — White-label community health platform for CKD & Glaucoma patients built with React Native. Joined existing codebase and contributed via task-based development, QA testing, and release management. Features symptom tracking, medication reminders, newsfeeds, medical library, chat, push notifications, and multi-disease codebase reusability.",
       "bullets": [
-        "Main developer directly building the mobile application from scratch using React Native, actively developing to present across a multi-disease white-label architecture.",
+        "Joined an existing React Native codebase (multi-disease white-label architecture) and contributed via task-based development, QA testing, and release management cycles.",
         "Engineered Redux state normalization with normalizr to handle deeply nested API data structures across symptom tracking, newsfeed, and community modules.",
         "Applied 8 patch-package hotfixes for 3rd-party native libraries, demonstrating deep native module debugging skills beyond standard React Native development.",
         "Resolved Objective-C native code to fix critical push notification bugs on iOS 14+ — direct native-layer intervention without relying on library patches.",
-        "Implemented multi-environment Fastlane CI/CD pipelines (staging/production) with Firebase App Distribution and App Store/Google Play publishing automation.",
+        "Supported bug fixes in the Fastlane CI/CD pipeline (staging/production) for Firebase App Distribution and App Store/Google Play publishing.",
         "Integrated i18n internationalization (i18n-js + react-native-localize), Firebase Analytics, Sentry crash monitoring, and Branch deep-linking."
       ],
       "tech": [
@@ -120,12 +120,12 @@
     },
     {
       "name": "BonVoye — Location-Based Storytelling Travel App",
-      "role": "Main Developer (Built from scratch)",
+      "role": "Mobile Developer (Flutter)",
       "dates": "Jul 2026 - Present",
       "icon": "fa-solid fa-map-location-dot",
       "description": "Main Project (Started Jul 2026) — Location-based travel experience application built from scratch with Flutter 3.44.5. Features full-screen interactive maps, Haversine GPS proximity detection (~20m triggering), Hidden Threads multi-location quests, dual storytelling modes (audio narration + webtoon), dev-mode location simulation, Visual Map Editor CMS, and in-app billing.",
       "bullets": [
-        "Main developer building from scratch with Flutter 3.44.5 / Dart ^3.12.2, targeting 6 platforms: Android, iOS, Web, Windows, macOS, and Linux.",
+        "Main developer building from scratch with Flutter, targeting 6 platforms: Android, iOS, Web, Windows, macOS, and Linux.",
         "Implemented Haversine formula GPS proximity detection (~20m radius trigger) and a dev-mode location simulator enabling full feature testing without physical movement.",
         "Designed feature-based clean architecture (screens/, providers/, models/, widgets/) with full widget + provider test suite and internal architecture documentation.",
         "Integrated dual storytelling modes (audio narration + webtoon), Hidden Threads multi-location quest chains, and in-app billing via Apple IAP & Google Play Billing."
@@ -175,7 +175,7 @@
     },
     {
       "name": "HD Booking App — Multi-tenant SaaS Booking Platform",
-      "role": "Support Developer (Maintenance & Feature Enhancements)",
+      "role": "React Native Developer (Maintenance & Feature Enhancements)",
       "dates": "Aug 2025 - Dec 2025",
       "icon": "fa-solid fa-calendar-check",
       "description": "Supporting Project (Aug 2025 - Dec 2025) — Customer-facing multi-tenant salon & spa booking platform (1 deployment, multiple brands via custom domains). Features service booking, OTP authentication, real-time chat, Stripe/VNPay payments, gift cards, loyalty/reviews, and SEO-optimized store pages — primarily targeting the Vietnamese market with English support.",
@@ -194,8 +194,8 @@
         "Apollo Client",
         "Socket.io",
         "Stripe",
-        "VNPay",
-        "Leaflet OSM",
+        "Sepay",
+        "Google Map",
         "i18next",
         "Docker",
         "GitLab CI",
