@@ -3,10 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch and Render Portfolio Data
     // ==========================================================================
     async function loadCVData() {
+        // cv_data.json is the single source of truth, located at data/cv_data.json
+        // and symlinked/served at the ui/ level by the web server (see serve.sh).
         const candidatePaths = [
-            'cv_data.json',
-            '../cv_data.json',
-            '/cv_data.json'
+            'cv_data.json',       // served via local dev server (symlink in ui/)
+            '../data/cv_data.json' // direct relative path fallback
         ];
         for (const path of candidatePaths) {
             try {

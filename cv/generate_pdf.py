@@ -6,12 +6,11 @@ from jinja2 import Template
 
 # Define paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-JSON_PATH = os.path.join(os.path.dirname(BASE_DIR), "ui", "cv_data.json")
-if not os.path.exists(JSON_PATH):
-    JSON_PATH = os.path.join(os.path.dirname(BASE_DIR), "cv_data.json")
+ROOT_DIR = os.path.dirname(BASE_DIR)
+JSON_PATH = os.path.join(ROOT_DIR, "data", "cv_data.json")
 TEMPLATE_PATH = os.path.join(BASE_DIR, "template.html")
 OUTPUT_HTML_PATH = os.path.join(BASE_DIR, "rendered.html")
-OUTPUT_PDF_PATH = os.path.join(BASE_DIR, "resume.pdf")
+OUTPUT_PDF_PATH = os.path.join(ROOT_DIR, "ui", "resume.pdf")
 
 def check_dependencies():
     """Ensure required packages and playwright browsers are installed."""
@@ -71,7 +70,12 @@ def generate_pdf():
         f.write(rendered_html)
     print(f"HTML rendered successfully to {OUTPUT_HTML_PATH}")
 
-    # 4. Use Playwright to print HTML to PDF
+    # 4. Remove old PDF if it already exists
+    if os.path.exists(OUTPUT_PDF_PATH):
+        os.remove(OUTPUT_PDF_PATH)
+        print(f"Removed existing PDF: {OUTPUT_PDF_PATH}")
+
+    # 5. Use Playwright to print HTML to PDF
     print("Launching Playwright to print HTML to PDF...")
     from playwright.sync_api import sync_playwright
     
