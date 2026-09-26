@@ -1,0 +1,74 @@
+# Presentation layer for the portfolio: everything the website, chatbot and
+# resume need that is NOT a CV fact. CV facts live in content/cv.md.
+#
+# After editing either file run:  npm run sync   (writes data/cv_data.json)
+
+site:
+  # Base URL of the chat/contact API (no trailing slash). Leave empty until the
+  # serverless backend is deployed: the chat widget stays hidden and the contact
+  # form falls back to Web3Forms (if a key is set) or a pre-filled mailto: link.
+  # Local dev (localhost) always talks to http://localhost:8001.
+  api_base: ""
+  # Public Web3Forms access key — safe to expose by design (https://web3forms.com).
+  web3forms_access_key: ""
+  # Public URL of this site (e.g. the GitHub Pages address). When set, the
+  # resume's contact line links back to it.
+  url: ""
+
+# ui/resume.pdf is rendered by career-ops (`npm run resume`). The template is
+# chosen in career-ops, config/profile.yml → cv.template (currently "portfolio",
+# whose source is content/resume-template/). Colours/fonts: profile.yml → style.
+resume:
+  format: letter  # letter | a4
+
+stats:
+  - num: "2+"
+    label: Years Experience
+  - num: React Native Ecosystem
+    label: Core Focus
+  - num: "5"
+    label: Delivered Projects
+
+# Font Awesome classes. Keys are matched case-insensitively as a substring of
+# the entry title in cv.md (first match wins); unmatched entries get a default
+# icon and `npm run sync` prints a warning.
+icons:
+  projects:
+    Responsum: fa-solid fa-mobile-screen-button
+    HD Booking: fa-solid fa-calendar-check
+    GPBMT CRM: fa-solid fa-church
+    OCR: fa-solid fa-brain
+    BonVoye: fa-solid fa-map-location-dot
+  education:
+    FPT School of Business: fa-solid fa-graduation-cap
+    FPT University: fa-solid fa-university
+  skills:
+    Programming Languages: fa-solid fa-code
+    Core Technologies: fa-solid fa-mobile-screen-button
+    Applied & Familiar Technologies: fa-solid fa-layer-group
+    Languages: fa-solid fa-language
+
+assistant:
+  name: Minh AI
+  # Stated verbatim whenever the chatbot is asked about compensation.
+  salary_statement: >-
+    $1,500-$2,000 USD per month, negotiable depending on role scope, seniority,
+    and whether the position is remote or based in Ho Chi Minh City.
+  # Generic follow-up chips. One "Tell me about <project>" chip per project in
+  # cv.md is added automatically by `npm run sync`.
+  suggestions:
+    - { text: "What are your core technical skills?", topics: [skills, tech] }
+    - { text: "What's your React Native experience?", topics: [skills, mobile, react] }
+    - { text: "Do you know TypeScript?", topics: [skills, tech] }
+    - { text: "What backend technologies do you use?", topics: [skills, tech, backend] }
+    - { text: "What databases have you worked with?", topics: [skills, tech, backend] }
+    - { text: "Tell me about your most impressive project.", topics: [projects] }
+    - { text: "What is your work experience?", topics: [experience, career] }
+    - { text: "How many years of experience do you have?", topics: [experience, career] }
+    - { text: "Have you worked in a team or solo?", topics: [experience, career] }
+    - { text: "What type of roles are you looking for?", topics: [career, availability] }
+    - { text: "What's your expected salary?", topics: [salary, availability] }
+    - { text: "Are you open to remote work?", topics: [availability, career] }
+    - { text: "When can you start?", topics: [availability] }
+    - { text: "How can I contact you?", topics: [contact] }
+    - { text: "Can I see your GitHub?", topics: [contact, projects] }
