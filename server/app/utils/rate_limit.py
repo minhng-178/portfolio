@@ -1,67 +1,71 @@
 """
 IP-based rate limiting utilities.
 
-Uses an in-memory sliding-window bucket per IP address.
-Two separate limiters are provided:
-  - chat_rate_limit   — for the /api/chat endpoint
-  - contact_rate_limit — for the /api/contact endpoint
+In-memory sliding-window limiter, one instance per endpoint. State is
+per-process: fine for a single container, and best-effort on serverless
+(each warm instance keeps its own window). Move to a shared store (e.g. a
+hosted Redis) behind the same `allow()` interface if abuse becomes real.
 """
 
 import time
-from collections import defaultdict, deque
+from collections import OrderedDict, deque
 
 from fastapi import Request
 
 from app.config import (
+    CLIENT_IP_HEADER,
     CONTACT_RATE_LIMIT_MAX,
     CONTACT_RATE_LIMIT_WINDOW,
     RATE_LIMIT_MAX_REQUESTS,
+    RATE_LIMIT_MAX_TRACKED_KEYS,
     RATE_LIMIT_WINDOW_SECONDS,
 )
 
-# ---------------------------------------------------------------------------
-# Internal buckets (module-level singletons)
-# ---------------------------------------------------------------------------
-_chat_buckets: dict = defaultdict(deque)
-_contact_buckets: dict = defaultdict(deque)
 
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 def get_client_ip(request: Request) -> str:
     """
-    Extract the real client IP.
-    Caddy (or any reverse proxy) sets X-Forwarded-For; fall back to the
-    direct peer address for local/dev runs without a proxy.
+    Extract the client IP. Only the platform header named by CLIENT_IP_HEADER
+    is trusted; otherwise use the TCP peer. X-Forwarded-For is never read
+    directly because its leftmost value is whatever the client sent.
     """
-    forwarded = request.headers.get("x-forwarded-for")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
+    if CLIENT_IP_HEADER:
+        value = request.headers.get(CLIENT_IP_HEADER, "").strip()
+        if value:
+            return value
     return request.client.host if request.client else "unknown"
 
 
-def _check_limit(bucket: deque, max_requests: int, window_seconds: int) -> bool:
-    """Sliding-window check. Returns True if the request is allowed."""
-    now = time.monotonic()
-    while bucket and now - bucket[0] > window_seconds:
-        bucket.popleft()
-    if len(bucket) >= max_requests:
-        return False
-    bucket.append(now)
-    return True
+class SlidingWindowLimiter:
+    def __init__(self, max_requests: int, window_seconds: float, max_keys: int):
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.max_keys = max_keys
+        self._buckets: "OrderedDict[str, deque]" = OrderedDict()
+
+    def allow(self, key: str) -> bool:
+        """Record a hit for `key`. Returns True if the request is allowed."""
+        now = time.monotonic()
+        bucket = self._buckets.pop(key, None) or deque()
+        while bucket and now - bucket[0] > self.window_seconds:
+            bucket.popleft()
+
+        allowed = len(bucket) < self.max_requests
+        if allowed:
+            bucket.append(now)
+
+        # Re-insert as most recently used; evict the least recently used keys.
+        self._buckets[key] = bucket
+        while len(self._buckets) > self.max_keys:
+            self._buckets.popitem(last=False)
+        return allowed
+
+    def reset(self) -> None:
+        self._buckets.clear()
 
 
-# ---------------------------------------------------------------------------
-# Public API
-# ---------------------------------------------------------------------------
-def check_chat_rate_limit(ip: str) -> bool:
-    return _check_limit(
-        _chat_buckets[ip], RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS
-    )
-
-
-def check_contact_rate_limit(ip: str) -> bool:
-    return _check_limit(
-        _contact_buckets[ip], CONTACT_RATE_LIMIT_MAX, CONTACT_RATE_LIMIT_WINDOW
-    )
+chat_limiter = SlidingWindowLimiter(
+    RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS, RATE_LIMIT_MAX_TRACKED_KEYS
+)
+contact_limiter = SlidingWindowLimiter(
+    CONTACT_RATE_LIMIT_MAX, CONTACT_RATE_LIMIT_WINDOW, RATE_LIMIT_MAX_TRACKED_KEYS
+)

@@ -1,49 +1,28 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Local dev talks to the backend on localhost; any other hostname (i.e.
-    // the live site) talks to the deployed backend. Update PRODUCTION_API_BASE
-    // once you know your VPS's sslip.io hostname (or real domain).
-    const PRODUCTION_API_BASE = 'https://203.0.113.10.sslip.io';
-    const isLocalDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    const CHAT_API_BASE = isLocalDev ? 'http://localhost:8001' : PRODUCTION_API_BASE;
+document.addEventListener('DOMContentLoaded', async () => {
+    const widget = document.querySelector('.chat-widget');
+    if (!widget) return;
+
+    // The widget stays hidden unless the backend reports an LLM is configured
+    // (GET /api/health) — no "Offline" bot on the live site.
+    let data;
+    try {
+        data = await window.Portfolio.loadPortfolioData();
+    } catch (err) {
+        return; // script.js already shows the load error
+    }
+    const health = await window.Portfolio.apiHealth(data);
+    if (!health.chat) return;
+    widget.hidden = false;
+
+    const CHAT_API_BASE = window.Portfolio.apiBase(data);
+    const ASSISTANT_NAME = data.assistant.name;
+    const CANDIDATE_NAME = data.personal_info.name.split(' ').slice(-1)[0];
 
     // ─── Smart Suggestion Pool ────────────────────────────────────────────────
     // Each question is tagged with topics so we can pick contextually relevant
-    // follow-ups after the bot replies.
-    const SUGGESTION_POOL = [
-        // Skills & Tech
-        { text: "What are your core technical skills?",       topics: ['skills', 'tech'] },
-        { text: "What's your React Native experience?",       topics: ['skills', 'mobile', 'react'] },
-        { text: "Do you know TypeScript?",                    topics: ['skills', 'tech'] },
-        { text: "What backend technologies do you use?",      topics: ['skills', 'tech', 'backend'] },
-        { text: "Are you familiar with cloud services?",      topics: ['skills', 'tech', 'cloud'] },
-        { text: "What databases have you worked with?",       topics: ['skills', 'tech', 'backend'] },
-        { text: "Do you have UI/UX design experience?",       topics: ['skills', 'design'] },
-
-        // Projects
-        { text: "Tell me about your most impressive project.", topics: ['projects'] },
-        { text: "What is BonVoye?",                           topics: ['projects', 'mobile'] },
-        { text: "What is GPBMT CRM?",                         topics: ['projects', 'backend'] },
-        { text: "Tell me about HD Booking App.",              topics: ['projects', 'mobile'] },
-        { text: "What is Responsum?",                         topics: ['projects', 'backend'] },
-
-        // Experience & Career
-        { text: "What is your work experience?",              topics: ['experience', 'career'] },
-        { text: "How many years of experience do you have?",  topics: ['experience', 'career'] },
-        { text: "Have you worked in a team or solo?",         topics: ['experience', 'career'] },
-        { text: "Have you worked with international clients?", topics: ['experience', 'career'] },
-        { text: "What type of roles are you looking for?",    topics: ['career', 'availability'] },
-
-        // Salary & Availability
-        { text: "What's your expected salary?",               topics: ['salary', 'availability'] },
-        { text: "Are you open to remote work?",               topics: ['availability', 'career'] },
-        { text: "When can you start?",                        topics: ['availability'] },
-        { text: "Are you available full-time?",               topics: ['availability'] },
-
-        // Contact
-        { text: "How can I contact you?",                     topics: ['contact'] },
-        { text: "Do you have a LinkedIn profile?",            topics: ['contact'] },
-        { text: "Can I see your GitHub?",                     topics: ['contact', 'projects'] },
-    ];
+    // follow-ups after the bot replies. Built by `npm run sync` from
+    // content/portfolio.yml plus one chip per project in cv.md.
+    const SUGGESTION_POOL = data.assistant.suggestions;
 
     // Keywords in bot reply / user message → boost related topics
     const TOPIC_KEYWORDS = {
@@ -109,8 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ─── DOM refs ─────────────────────────────────────────────────────────────
-    const widget = document.querySelector('.chat-widget');
-    if (!widget) return;
 
     const toggleBtn  = document.getElementById('chat-toggle-btn');
     const closeBtn   = document.getElementById('chat-close-btn');
@@ -124,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let history    = [];
     let hasGreeted = false;
-    let isOnline   = null;
 
     // ─── Bubble helpers ───────────────────────────────────────────────────────
     function appendBubble(role, text) {
@@ -219,17 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
         messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
-    // ─── Health check ─────────────────────────────────────────────────────────
-    async function checkHealth() {
-        try {
-            const res = await fetch(`${CHAT_API_BASE}/api/health`);
-            isOnline = res.ok;
-        } catch (err) {
-            isOnline = false;
-        }
-        onlineDot.classList.toggle('online',  isOnline === true);
-        onlineDot.classList.toggle('offline', isOnline === false);
-        statusEl.textContent = isOnline ? 'Online' : 'Offline';
+    // ─── Status ───────────────────────────────────────────────────────────────
+    function showOnlineStatus() {
+        onlineDot.classList.add('online');
+        statusEl.textContent = 'Online';
     }
 
     // ─── Panel open / close ───────────────────────────────────────────────────
@@ -239,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!hasGreeted) {
             hasGreeted = true;
             typewriterBubble(
-                "Hi there! I'm Minh AI — Minh Nguyễn's virtual assistant. What would you like to know about his skills, experience, or projects?",
+                `Hi there! I'm ${ASSISTANT_NAME}, ${CANDIDATE_NAME}'s virtual assistant. What would you like to know about his skills, experience, or projects?`,
                 () => showSuggestions(pickSmartSuggestions('', ''))
             );
         }
@@ -285,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             typingBubble.remove();
-            typewriterBubble("Sorry, Minh AI is temporarily offline. Feel free to reach out directly via the contact form below!");
+            typewriterBubble(`Sorry, ${ASSISTANT_NAME} is temporarily unavailable. Feel free to reach out directly via the contact form below!`);
         } finally {
             input.disabled = false;
             sendBtn.disabled = false;
@@ -312,5 +281,5 @@ document.addEventListener('DOMContentLoaded', () => {
         sendMessage(message);
     });
 
-    checkHealth();
+    showOnlineStatus();
 });

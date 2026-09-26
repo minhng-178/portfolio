@@ -1,0 +1,19 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-cv.mjs",
+    "check": "node scripts/sync-cv.mjs --check",
+    "resume": "node scripts/sync-cv.mjs && node scripts/build-resume.mjs",
+    "dev": "./serve.sh",
+    "dev:api": "cd server && uvicorn app.main:app --reload --port 8001 --env-file ../.env",
+    "test:api": "cd server && python3 -m pytest -q"
+  },
+  "devDependencies": {
+    "js-yaml": "^5.4.2"
+  }
+}

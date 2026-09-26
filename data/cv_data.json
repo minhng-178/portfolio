@@ -189,7 +189,7 @@
         "Git"
       ]
     },
-        {
+    {
       "name": "BonVoye — Location-Based Storytelling Travel App",
       "role": "Mobile Developer (Flutter)",
       "dates": "Jul 2026 - Present",
@@ -218,7 +218,7 @@
   "skills": [
     {
       "category": "Programming Languages",
-      "icon": "fa-solid fa-code-line",
+      "icon": "fa-solid fa-code",
       "items": "JavaScript, TypeScript, Python"
     },
     {
@@ -254,5 +254,151 @@
       "icon": "fa-solid fa-university",
       "desc": "Comprehensive training in software engineering, data structures, algorithms, and application architectures."
     }
-  ]
+  ],
+  "assistant": {
+    "name": "Minh AI",
+    "salary_statement": "$1,500-$2,000 USD per month, negotiable depending on role scope, seniority, and whether the position is remote or based in Ho Chi Minh City.",
+    "suggestions": [
+      {
+        "text": "What are your core technical skills?",
+        "topics": [
+          "skills",
+          "tech"
+        ]
+      },
+      {
+        "text": "What's your React Native experience?",
+        "topics": [
+          "skills",
+          "mobile",
+          "react"
+        ]
+      },
+      {
+        "text": "Do you know TypeScript?",
+        "topics": [
+          "skills",
+          "tech"
+        ]
+      },
+      {
+        "text": "What backend technologies do you use?",
+        "topics": [
+          "skills",
+          "tech",
+          "backend"
+        ]
+      },
+      {
+        "text": "What databases have you worked with?",
+        "topics": [
+          "skills",
+          "tech",
+          "backend"
+        ]
+      },
+      {
+        "text": "Tell me about your most impressive project.",
+        "topics": [
+          "projects"
+        ]
+      },
+      {
+        "text": "What is your work experience?",
+        "topics": [
+          "experience",
+          "career"
+        ]
+      },
+      {
+        "text": "How many years of experience do you have?",
+        "topics": [
+          "experience",
+          "career"
+        ]
+      },
+      {
+        "text": "Have you worked in a team or solo?",
+        "topics": [
+          "experience",
+          "career"
+        ]
+      },
+      {
+        "text": "What type of roles are you looking for?",
+        "topics": [
+          "career",
+          "availability"
+        ]
+      },
+      {
+        "text": "What's your expected salary?",
+        "topics": [
+          "salary",
+          "availability"
+        ]
+      },
+      {
+        "text": "Are you open to remote work?",
+        "topics": [
+          "availability",
+          "career"
+        ]
+      },
+      {
+        "text": "When can you start?",
+        "topics": [
+          "availability"
+        ]
+      },
+      {
+        "text": "How can I contact you?",
+        "topics": [
+          "contact"
+        ]
+      },
+      {
+        "text": "Can I see your GitHub?",
+        "topics": [
+          "contact",
+          "projects"
+        ]
+      },
+      {
+        "text": "Tell me about Responsum.",
+        "topics": [
+          "projects"
+        ]
+      },
+      {
+        "text": "Tell me about HD Booking App.",
+        "topics": [
+          "projects"
+        ]
+      },
+      {
+        "text": "Tell me about GPBMT CRM.",
+        "topics": [
+          "projects"
+        ]
+      },
+      {
+        "text": "Tell me about OCR for Vietnamese Handwriting.",
+        "topics": [
+          "projects"
+        ]
+      },
+      {
+        "text": "Tell me about BonVoye.",
+        "topics": [
+          "projects"
+        ]
+      }
+    ]
+  },
+  "site": {
+    "api_base": "",
+    "web3forms_access_key": "",
+    "url": ""
+  }
 }

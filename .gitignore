@@ -21,3 +21,7 @@ venv/
 
 # Deployment secrets/local overrides
 .env
+
+# career-ops is a separate git repo (upstream fork), integrated locally only.
+# It reads content/ through symlinks — see README "How This Site Works".
+career-ops/
