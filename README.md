@@ -49,7 +49,7 @@ Proven track record of building main mobile applications directly from scratch, 
 
 ---
 
-w## 🌍 Languages
+## 🌍 Languages
 
 | Language      | Level                                        |
 | ------------- | -------------------------------------------- |
@@ -58,34 +58,40 @@ w## 🌍 Languages
 
 ---
 
-## 📬 Contact Form & Mail Service Setup
+## 🏗️ How This Site Works
 
-The portfolio contact form supports two deployment options for dispatching real emails:
-
-### Option 1: FastAPI Backend + SMTP (Recommended for VPS Deployment)
-
-Configure the following environment variables in `.env` on your VPS:
-
-```env
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-16-character-app-password
-CONTACT_RECEIVER_EMAIL=your-email@gmail.com
+```
+content/cv.md ─────────┐   CV facts — the single source of truth (edit here)
+content/portfolio.yml ─┤   presentation: icons, stats, chatbot + site config
+                       ▼
+            npm run sync  →  data/cv_data.json  (generated, committed)
+                       ├──►  ui/            static site on GitHub Pages
+                       ├──►  server/        chat + contact API (FastAPI)
+                       └──►  ui/resume.pdf  npm run resume, rendered by career-ops
+                                            with content/resume-template/
 ```
 
-- **Gmail Setup**: Enable 2-Step Verification on your Google Account, generate an **App Password** under Security Settings, and paste it into `SMTP_PASSWORD`.
-- **API Endpoint**: `POST /api/contact` accepts `{ name, email, message }`, validates input, enforces IP rate limiting (max 5 requests per 10 mins), and sends an HTML formatted notification email.
+- **career-ops** (local only, gitignored) is the CV engine. `npm run sync` links it to this repo:
+  - `career-ops/cv.md → ../content/cv.md`. The CV Studio (career-ops web, branch `cv-studio`) writes through this link, so saving there edits `content/cv.md` directly, and its load/save cycle keeps the file's layout byte for byte. If some other tool replaces the link with a plain file, the next sync adopts those edits and restores the link.
+  - `career-ops/templates/portfolio → ../../content/resume-template`, which registers the **Portfolio** CV template. It is the default in career-ops `config/profile.yml` (`cv.template`), so tailored CVs and `ui/resume.pdf` share one design. Colours and fonts go in the same file's `style:` block.
+- **`npm run resume`** maps `content/cv.md` with the CV Studio's own modules, then runs `build-cv-html.mjs` and `generate-pdf.mjs`. That gives the resume ATS text normalisation, the section-order guard and the fact check against `cv.md`. Try another template with `npm run resume -- --template=modern`. In the CV Studio, pick a template under **career-ops Templates** to preview it live and export the same PDF.
+- **CI** (`.github/workflows/ci.yml`) fails if `data/cv_data.json` is stale, runs the API tests, then deploys `ui/` to GitHub Pages from `main`.
+- **Backend is optional.** With `site.api_base` empty in `portfolio.yml`, the chat widget stays hidden and the contact form uses Web3Forms (if `site.web3forms_access_key` is set) or a pre-filled `mailto:` link.
 
-### Option 2: Web3Forms (Client-Side for Static Hosting)
+### Commands
 
-If deploying static HTML to GitHub Pages or Vercel without running the FastAPI backend:
+| Command | What it does |
+| --- | --- |
+| `npm install` | Install the sync tooling (once) |
+| `npm run sync` | Rebuild `data/cv_data.json` after editing `content/` |
+| `npm run resume` | Render `ui/resume.pdf` through career-ops (needs the clone) |
+| `npm run dev` | Serve `ui/` at http://localhost:8080 |
+| `npm run dev:api` | Run the API at http://localhost:8001 with `.env` (see `.env.example`) |
+| `npm run test:api` | API test suite (`pip install -r server/requirements-dev.txt` first) |
 
-1. Obtain a free Access Key at [web3forms.com](https://web3forms.com).
-2. Set `WEB3FORMS_ACCESS_KEY` in `ui/js/script.js`:
-   ```javascript
-   const WEB3FORMS_ACCESS_KEY = "your-access-key-here";
-   ```
+### Backend configuration
+
+The API is stateless and platform-agnostic: the chat talks to any **OpenAI-compatible** endpoint (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`; a local Ollama at `http://localhost:11434/v1` works too), and mail goes over SMTP. `server/Dockerfile` runs it on any container platform that injects `$PORT`. After deploying, set `ALLOWED_ORIGINS` to the site origin, `CLIENT_IP_HEADER` to the platform's client-IP header, and `site.api_base` in `portfolio.yml`.
 
 ---
 
