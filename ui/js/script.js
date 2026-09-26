@@ -2,30 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // Fetch and Render Portfolio Data
     // ==========================================================================
-    async function loadCVData() {
-        // cv_data.json is the single source of truth, located at data/cv_data.json
-        // and symlinked/served at the ui/ level by the web server (see serve.sh).
-        const candidatePaths = [
-            'cv_data.json',       // served via local dev server (symlink in ui/)
-            '../data/cv_data.json' // direct relative path fallback
-        ];
-        for (const path of candidatePaths) {
-            try {
-                const res = await fetch(path);
-                if (res.ok) {
-                    return await res.json();
-                }
-            } catch (e) {
-                // Ignore and try next path
-            }
-        }
-        throw new Error('Failed to load cv_data.json from any known path');
-    }
-
-    loadCVData()
+    // cv_data.json is generated from content/ by `npm run sync` and served next
+    // to index.html (symlink locally, copied in CI) — see js/runtime.js.
+    window.Portfolio.loadPortfolioData()
         .then(data => {
             renderPortfolio(data);
-            initializeInteractiveElements();
+            initializeInteractiveElements(data);
         })
         .catch(err => {
             console.error('Error fetching CV data:', err);
@@ -218,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // Interactive Behaviors (Theme, Navs, Forms, Scroll Animations)
     // ==========================================================================
-    function initializeInteractiveElements() {
+    function initializeInteractiveElements(data) {
         // Theme Switcher (Dark / Light Mode)
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = themeToggleBtn.querySelector('i');
@@ -321,91 +303,92 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Form Submission
+        // Delivery chain: backend API (when /api/health reports contact) →
+        // Web3Forms (when a public key is set in portfolio.yml) → mailto: link.
         const contactForm = document.getElementById('contact-form');
         const formResponse = document.getElementById('form-response');
-        
-        if (contactForm) {
-            // Determine backend API host dynamically (matches chat.js logic)
-            const PRODUCTION_API_BASE = 'https://203.0.113.10.sslip.io';
-            const isLocalDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-            const API_BASE = isLocalDev ? 'http://localhost:8001' : PRODUCTION_API_BASE;
-            
-            // Optional: Web3Forms access key if deploying static HTML without a backend server
-            const WEB3FORMS_ACCESS_KEY = '';
 
+        function showFormResponse(kind, title, text) {
+            const strong = document.createElement('strong');
+            strong.textContent = `${title} `;
+            formResponse.className = `form-response-msg ${kind}`;
+            formResponse.replaceChildren(strong, document.createTextNode(text));
+            formResponse.style.display = 'block';
+        }
+
+        async function sendViaApi(name, email, message) {
+            const res = await fetch(`${window.Portfolio.apiBase(data)}/api/contact`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            });
+            const body = await res.json().catch(() => ({}));
+            if (!res.ok || body.status !== 'success') {
+                throw new Error(body.detail || 'Failed to send message. Please try again.');
+            }
+            return body.message;
+        }
+
+        async function sendViaWeb3Forms(name, email, message) {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    access_key: data.site.web3forms_access_key,
+                    name,
+                    email,
+                    message,
+                    subject: `Portfolio Contact Message from ${name}`
+                })
+            });
+            const body = await res.json().catch(() => ({}));
+            if (!res.ok || !body.success) {
+                throw new Error(body.message || 'Failed to send message via Web3Forms.');
+            }
+            return `Thank you, ${name}! Your message has been sent successfully.`;
+        }
+
+        function openMailDraft(name, email, message) {
+            const to = data.personal_info.email;
+            const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+            const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+            window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+            return `Your email app should open with the message ready to send. If it doesn't, write to ${to}.`;
+        }
+
+        if (contactForm) {
             contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const submitBtn = contactForm.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn.textContent;
-                
-                const nameInput = document.getElementById('name');
-                const emailInput = document.getElementById('email_addr');
-                const messageInput = document.getElementById('message');
-                
-                const name = nameInput.value.trim();
-                const email = emailInput.value.trim();
-                const message = messageInput.value.trim();
-                
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email_addr').value.trim();
+                const message = document.getElementById('message').value.trim();
+
                 if (!name || !email || !message) {
-                    formResponse.className = 'form-response-msg error';
-                    formResponse.style.display = 'block';
-                    formResponse.innerHTML = '<strong>Error:</strong> Please fill in all required fields.';
+                    showFormResponse('error', 'Error:', 'Please fill in all required fields.');
                     return;
                 }
-                
+
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
                 formResponse.style.display = 'none';
 
                 try {
-                    let isSuccess = false;
-                    let responseMsg = '';
-
-                    if (WEB3FORMS_ACCESS_KEY) {
-                        // Submit via Web3Forms client-side service
-                        const res = await fetch('https://api.web3forms.com/submit', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                            body: JSON.stringify({
-                                access_key: WEB3FORMS_ACCESS_KEY,
-                                name: name,
-                                email: email,
-                                message: message,
-                                subject: `Portfolio Contact Message from ${name}`
-                            })
-                        });
-                        const data = await res.json();
-                        if (res.ok && data.success) {
-                            isSuccess = true;
-                            responseMsg = `Thank you, ${name}! Your message has been sent successfully.`;
-                        } else {
-                            throw new Error(data.message || 'Failed to send message via Web3Forms.');
-                        }
+                    const health = await window.Portfolio.apiHealth(data);
+                    let responseMsg;
+                    if (health.contact) {
+                        responseMsg = await sendViaApi(name, email, message);
+                    } else if (data.site && data.site.web3forms_access_key) {
+                        responseMsg = await sendViaWeb3Forms(name, email, message);
                     } else {
-                        // Submit via FastAPI backend API
-                        const res = await fetch(`${API_BASE}/api/contact`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ name, email, message })
-                        });
-                        const data = await res.json();
-                        if (res.ok && data.status === 'success') {
-                            isSuccess = true;
-                            responseMsg = data.message || `Thank you, ${name}! Your message has been sent successfully.`;
-                        } else {
-                            throw new Error(data.detail || 'Failed to send message. Please try again.');
-                        }
+                        responseMsg = openMailDraft(name, email, message);
                     }
-
-                    formResponse.className = 'form-response-msg success';
-                    formResponse.style.display = 'block';
-                    formResponse.innerHTML = `<strong>Success!</strong> ${responseMsg}`;
+                    showFormResponse('success', 'Success!', responseMsg);
                     contactForm.reset();
-
                 } catch (err) {
-                    formResponse.className = 'form-response-msg error';
-                    formResponse.style.display = 'block';
-                    formResponse.innerHTML = `<strong>Error:</strong> ${err.message || 'Something went wrong. Please try again.'}`;
+                    showFormResponse('error', 'Error:', err.message || 'Something went wrong. Please try again.');
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalBtnText;
