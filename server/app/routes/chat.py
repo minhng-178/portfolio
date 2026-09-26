@@ -6,14 +6,9 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 
 from app.config import MAX_HISTORY_MESSAGES, MAX_MESSAGE_LENGTH, RELEVANCE_CONTEXT_TURNS
-from app.services.ollama import call_ollama
-from app.utils.rate_limit import check_chat_rate_limit, get_client_ip
-from app.utils.topic import (
-    OFF_TOPIC_REPLY_EN,
-    OFF_TOPIC_REPLY_VI,
-    contains_vietnamese,
-    is_on_topic,
-)
+from app.services import llm
+from app.utils.rate_limit import chat_limiter, get_client_ip
+from app.utils.topic import contains_vietnamese, is_on_topic
 
 router = APIRouter()
 
@@ -23,7 +18,7 @@ router = APIRouter()
 # ---------------------------------------------------------------------------
 class ChatMessage(BaseModel):
     role: Literal["user", "assistant"]
-    content: str
+    content: str = Field(..., max_length=MAX_MESSAGE_LENGTH)
 
 
 class ChatRequest(BaseModel):
@@ -40,7 +35,10 @@ class ChatResponse(BaseModel):
 # ---------------------------------------------------------------------------
 @router.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest, request: Request):
-    if not check_chat_rate_limit(get_client_ip(request)):
+    if not llm.is_configured():
+        raise HTTPException(status_code=503, detail="The chat assistant is not configured.")
+
+    if not chat_limiter.allow(get_client_ip(request)):
         raise HTTPException(
             status_code=429,
             detail="Too many messages. Please wait a bit before trying again.",
@@ -56,18 +54,14 @@ async def chat(req: ChatRequest, request: Request):
     )
     relevance_text = f"{recent_context} {req.message}"
 
-    # TOPIC_KEYWORDS is injected at startup via app state (see app/main.py)
-    topic_keywords = request.app.state.topic_keywords
-    if not is_on_topic(relevance_text, topic_keywords):
-        reply = (
-            OFF_TOPIC_REPLY_VI if contains_vietnamese(req.message) else OFF_TOPIC_REPLY_EN
-        )
-        return ChatResponse(reply=reply)
+    state = request.app.state
+    if not is_on_topic(relevance_text, state.topic_matcher):
+        lang = "vi" if contains_vietnamese(req.message) else "en"
+        return ChatResponse(reply=state.off_topic_replies[lang])
 
     messages = [
         {"role": m.role, "content": m.content} for m in trimmed_history
     ] + [{"role": "user", "content": req.message}]
 
-    system_prompt = request.app.state.system_prompt
-    reply = await call_ollama(system_prompt, messages)
+    reply = await llm.complete_chat(state.system_prompt, messages)
     return ChatResponse(reply=reply)

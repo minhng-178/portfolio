@@ -1,19 +1,20 @@
-"""GET /api/health — Liveness probe for the Ollama backend."""
+"""GET /api/health — Liveness plus which features are configured.
 
-import httpx
-from fastapi import APIRouter, HTTPException
+Deliberately does not call the LLM provider: the UI polls this on every page
+load and a paid API should not be billed for it.
+"""
 
-from app.config import OLLAMA_URL
+from fastapi import APIRouter
+
+from app.services import llm, smtp
 
 router = APIRouter()
 
 
 @router.get("/api/health")
 async def health():
-    try:
-        async with httpx.AsyncClient(timeout=3.0) as client:
-            response = await client.get(f"{OLLAMA_URL}/api/tags")
-            response.raise_for_status()
-    except httpx.HTTPError:
-        raise HTTPException(status_code=503, detail="Ollama is not reachable")
-    return {"status": "ok"}
+    return {
+        "status": "ok",
+        "chat": llm.is_configured(),
+        "contact": smtp.is_configured(),
+    }

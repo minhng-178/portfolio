@@ -7,39 +7,24 @@ so off-topic questions can be rejected before calling the LLM.
 
 import re
 import unicodedata
-from typing import List
-
-
-# ---------------------------------------------------------------------------
-# Off-topic replies (English + Vietnamese)
-# ---------------------------------------------------------------------------
-OFF_TOPIC_REPLY_EN = (
-    "I'm only able to answer questions about Minh's CV — his work experience, "
-    "skills, projects, education, expected salary, or how to contact him. "
-    "Feel free to ask about any of those!"
-)
-OFF_TOPIC_REPLY_VI = (
-    "Mình chỉ có thể trả lời các câu hỏi "
-    "liên quan đến CV của Minh — kinh nghiệm làm "
-    "việc, kỹ năng, dự án, học vấn, mức "
-    "lương mong muốn, hoặc cách liên hệ. Bạn "
-    "hãy hỏi về những chủ đề này nhé!"
-)
+from typing import List, Pattern
 
 # ---------------------------------------------------------------------------
 # Static keyword allow-list (English + Vietnamese)
 # Combined at startup with dynamic keywords extracted from cv_data.json.
+# Matched as whole words (plural "s"/"es" allowed), accent-insensitive.
 # ---------------------------------------------------------------------------
 STATIC_KEYWORDS: List[str] = [
     # English - CV subjects
-    "experience", "work", "job", "career", "skill", "skills", "project",
-    "projects", "education", "degree", "school", "university", "salary",
-    "compensation", "pay", "rate", "expect", "expected", "contact", "email",
-    "phone", "linkedin", "github", "location", "available", "availability",
-    "hire", "hiring", "opportunity", "cv", "resume", "background",
-    "developer", "engineer", "role", "position", "company", "tech stack",
-    "technology", "technologies", "gpa", "recruiter", "interview",
-    "notice period", "remote", "relocate", "relocation",
+    "experience", "work", "worked", "job", "career", "skill", "project",
+    "education", "degree", "school", "university", "salary", "compensation",
+    "pay", "rate", "expect", "expected", "contact", "email", "phone",
+    "linkedin", "github", "location", "available", "availability", "hire",
+    "hiring", "opportunity", "opportunities", "cv", "resume", "background",
+    "developer", "engineer", "role", "position", "company", "companies",
+    "tech stack", "technology", "technologies", "gpa", "recruiter",
+    "interview", "notice period", "remote", "relocate", "relocation",
+    "portfolio", "freelance", "full-time", "part-time", "start",
     # English - small talk
     "hi", "hello", "hey", "good morning", "good afternoon", "good evening",
     "thanks", "thank you", "bye", "goodbye",
@@ -60,51 +45,49 @@ _VIETNAMESE_CHARS_PATTERN = re.compile(
 )
 
 
-def _strip_accents(text: str) -> str:
-    normalized = unicodedata.normalize("NFD", text)
+def _normalize(text: str) -> str:
+    normalized = unicodedata.normalize("NFD", text.lower())
     return "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
 
 
-def build_topic_keywords(cv_data: dict) -> List[str]:
+def build_topic_matcher(cv_data: dict) -> Pattern[str]:
     """
-    Build the full keyword allow-list by merging static keywords with
-    dynamic terms extracted from cv_data (company names, tech stack, schools).
-    Call once at startup.
+    Compile the keyword allow-list — static keywords plus terms extracted from
+    cv_data (companies, roles, tech stack, schools) — into one whole-word
+    regex. Call once at startup.
     """
     keywords: set = set(STATIC_KEYWORDS)
 
     for job in cv_data.get("work_experience", []):
-        keywords.add(job["company"].lower())
-        keywords.add(job["role"].lower())
-        for tech in job.get("tech", []):
-            keywords.add(tech.lower())
+        keywords.add(job["company"])
+        keywords.add(job["role"])
+        keywords.update(job.get("tech", []))
 
     for project in cv_data.get("projects", []):
-        keywords.add(project["name"].lower())
-        for tech in project.get("tech", []):
-            keywords.add(tech.lower())
+        keywords.add(project["name"])
+        # "BonVoye — Location-Based ..." is usually asked about as "BonVoye"
+        keywords.add(re.split(r"\s+[—–-]\s+", project["name"])[0])
+        keywords.update(project.get("tech", []))
 
     for category in cv_data.get("skills", []):
-        for item in category["items"].split(","):
-            item = item.strip().lower()
-            if len(item) > 2:
-                keywords.add(item)
+        keywords.update(item.strip() for item in category["items"].split(","))
 
     for edu in cv_data.get("education", []):
-        keywords.add(edu["school"].lower())
-        keywords.add(edu["degree"].lower())
+        keywords.add(edu["school"])
+        keywords.add(edu["degree"])
 
-    return sorted(keywords)
+    needles = sorted(
+        {_normalize(k).strip() for k in keywords if len(k.strip()) >= 2},
+        key=len,
+        reverse=True,
+    )
+    alternation = "|".join(re.escape(n) for n in needles if n)
+    return re.compile(rf"(?<!\w)(?:{alternation})(?:e?s)?(?!\w)")
 
 
 def contains_vietnamese(text: str) -> bool:
     return bool(_VIETNAMESE_CHARS_PATTERN.search(text))
 
 
-def is_on_topic(text: str, keywords: List[str]) -> bool:
-    haystack = _strip_accents(text.lower())
-    for keyword in keywords:
-        needle = _strip_accents(keyword.lower())
-        if needle and needle in haystack:
-            return True
-    return False
+def is_on_topic(text: str, matcher: Pattern[str]) -> bool:
+    return bool(matcher.search(_normalize(text)))
